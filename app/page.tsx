@@ -32,7 +32,7 @@ export default function Home() {
 
     return (
         <main className="min-h-screen bg-black flex justify-center">
-            <div className="w-full max-w-90 bg-white relative">
+            <div className="w-full max-w-97.5 bg-white relative">
                 {/* 인트로 */}
                 <AnimatePresence>
                     {showIntro && (
@@ -57,7 +57,7 @@ export default function Home() {
                     />
 
                     <div className="relative pt-14 text-center">
-                        <h1 className="text-black text-2xl font-bold">
+                        <h1 className="text-bold text-2xl font-bold">
                             성택 & 현정
                         </h1>
                     </div>
