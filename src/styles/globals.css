@@ -8,8 +8,9 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-pretendard);
+  --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-bodoni-sc: var(--font-bodoni-sc);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -19,15 +20,7 @@
   }
 }
 
-html, body {
-  /* 더블탭 확대(특히 iOS) 완화/차단 */
-  touch-action: pan-y;
-}
-
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-sans), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  /* iOS Safari에서 제스처 확대(핀치) 일부 케이스 방지 */
-  -webkit-text-size-adjust: 100%;
 }
