@@ -2,19 +2,20 @@
 
 import { useEffect, useRef, useState } from "react";
 
-const SEC_PER_PX = 0.001;       // 쓰기 속도 조절 (낮을수록 빠름)
-const GAP_SEC = 0.005;          // 간격 속도 조절 (낮을수록 빠름)
-const REVERSE = true;           // 그리기 순서 반대 (true면 반대)
+const SEC_PER_PX = 0.001;
+const GAP_SEC = 0.005;
+const REVERSE = true;
 
-export default function Intro() {
+export default function WeAreGettingMarriedIntro() {
     const wrapRef = useRef<HTMLDivElement | null>(null);
     const [svgText, setSvgText] = useState("");
 
+    // SVG 로드
     useEffect(() => {
         let alive = true;
 
         (async () => {
-            const res = await fetch("/svgs/wearegettingmarried.svg", { cache: "no-store" });
+            const res = await fetch("/svgs/gettingmarried2.svg", { cache: "no-store" });
             const text = await res.text();
             if (!alive) return;
             setSvgText(text);
@@ -25,6 +26,7 @@ export default function Intro() {
         };
     }, []);
 
+    // 애니메이션 적용
     useEffect(() => {
         if (!svgText) return;
         const root = wrapRef.current;
@@ -66,7 +68,7 @@ export default function Intro() {
     }, [svgText]);
 
     return (
-        <div className="absolute inset-0 z-50 flex items-center justify-center bg-black">
+        <div className="mx-auto w-[300px] max-w-[85vw]">
             <style jsx>{`
                 @keyframes wgm-draw {
                     to {
@@ -75,11 +77,7 @@ export default function Intro() {
                 }
             `}</style>
 
-            <div
-                ref={wrapRef}
-                className="w-[320px] max-w-[85vw]"
-                dangerouslySetInnerHTML={{ __html: svgText }}
-            />
+            <div ref={wrapRef} dangerouslySetInnerHTML={{ __html: svgText }} />
         </div>
     );
 }
