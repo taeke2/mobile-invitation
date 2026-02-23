@@ -11,6 +11,7 @@
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --font-bodoni-sc: var(--font-bodoni-sc);
+  --font-gowun-batang: var(--font-gowun-batang);
 }
 
 @media (prefers-color-scheme: dark) {

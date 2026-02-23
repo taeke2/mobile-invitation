@@ -1,5 +1,5 @@
 import type {Metadata} from "next";
-import {Geist, Geist_Mono, Bodoni_Moda_SC} from "next/font/google";
+import {Geist, Geist_Mono, Bodoni_Moda_SC, Gowun_Batang} from "next/font/google";
 import "../styles/globals.css";
 
 const geistSans = Geist({
@@ -13,8 +13,14 @@ const geistMono = Geist_Mono({
 });
 
 const bodoniSC = Bodoni_Moda_SC({
-    subsets: ["latin"],
     variable: "--font-bodoni-sc",
+    subsets: ["latin"],
+});
+
+const gowunBatang = Gowun_Batang({
+    subsets: ["latin"],
+    weight: ["400"],
+    variable: "--font-gowun-batang",
 });
 
 export const metadata: Metadata = {
@@ -32,6 +38,7 @@ export default function RootLayout({
           ${geistSans.variable}
           ${geistMono.variable}
           ${bodoniSC.variable}
+          ${gowunBatang.variable}
           antialiased
         `}
         >
