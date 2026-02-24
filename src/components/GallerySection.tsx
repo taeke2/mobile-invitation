@@ -220,25 +220,28 @@ export default function GallerySection({ images, className }: Props) {
                         </button>
                     </div>
 
-                    {/* 좌우 버튼 (모바일 스와이프가 메인이지만, 버튼도 제공) */}
-                    <button
-                        type="button"
-                        onClick={goPrev}
-                        className="absolute left-2 top-1/2 -translate-y-1/2 z-10 rounded-full bg-white/10 p-3 text-white hover:bg-white/20 disabled:opacity-40"
-                        disabled={activeIndex === 0}
-                        aria-label="Previous image"
-                    >
-                        ‹
-                    </button>
-                    <button
-                        type="button"
-                        onClick={goNext}
-                        className="absolute right-2 top-1/2 -translate-y-1/2 z-10 rounded-full bg-white/10 p-3 text-white hover:bg-white/20 disabled:opacity-40"
-                        disabled={activeIndex === images.length - 1}
-                        aria-label="Next image"
-                    >
-                        ›
-                    </button>
+                    {/* 하단 좌우 버튼 */}
+                    <div className="absolute bottom-6 left-0 right-0 flex justify-between px-8 z-10">
+                        <button
+                            type="button"
+                            onClick={goPrev}
+                            disabled={activeIndex === 0}
+                            className="text-white text-2xl disabled:opacity-30"
+                            aria-label="Previous image"
+                        >
+                            ‹
+                        </button>
+
+                        <button
+                            type="button"
+                            onClick={goNext}
+                            disabled={activeIndex === images.length - 1}
+                            className="text-white text-2xl disabled:opacity-30"
+                            aria-label="Next image"
+                        >
+                            ›
+                        </button>
+                    </div>
 
                     {/* 이미지 스크롤러 (가로 스냅) */}
                     <div
