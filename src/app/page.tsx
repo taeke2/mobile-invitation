@@ -5,8 +5,10 @@ import Image from "next/image";
 import WeAreGettingMarriedIntro from "@/src/components/WeAreGettingMarriedIntro";
 import FadeInOnView from "@/src/components/FadeInOnView";
 import CountUpNumber from "@/src/components/CountUpNumber";
+import GallerySection from "@/src/components/GallerySection";
 
 export default function Home() {
+    // section3 캘린더 날짜 계산
     const diffDays = useMemo(() => {
         if (typeof window === "undefined") return 0;
 
@@ -27,6 +29,12 @@ export default function Home() {
 
         return Math.max(0, Math.ceil((target - start) / (1000 * 60 * 60 * 24)));
     }, []);
+
+    // section4 갤러리 배열 관리
+    const galleryImages = useMemo(
+        () => Array.from({length: 30}, (_, i) => `/images/gallery/gallery${i + 1}.jpg`),
+        []
+    );
 
     return (
         <main className="min-h-screen bg-[#722020] flex justify-center">
@@ -103,8 +111,7 @@ export default function Home() {
                 </section>
 
                 {/* section3 */}
-                <section
-                    className="relative px-10 py-15 text-center text-black bg-[url('/images/paper_bg.jpg')] bg-cover bg-center">
+                <section className="relative px-10 py-15 text-center text-black bg-[url('/images/paper_bg.jpg')] bg-cover bg-center">
                     {/* 타이틀 SVG */}
                     <div className="mx-auto w-55 max-w-[70vw]">
                         {/* svg는 img로 쓰는게 가장 간단/안전 */}
@@ -192,7 +199,7 @@ export default function Home() {
                     <div className="mt-10 text-[16px] font-gowun-batang font-bold">
                         성택 · 현정 결혼식이{" "}
                         <CountUpNumber
-                            to={diffDays ?? 0}      // ✅ 처음엔 0, 마운트 후 실제 값
+                            to={diffDays ?? 0}      // 처음엔 0, 마운트 후 실제 값
                             from={0}
                             durationMs={1200}
                             padStart={2}
@@ -204,6 +211,28 @@ export default function Home() {
                         일 남았습니다
                     </div>
                 </section>
+
+                {/* section4 */}
+                <section className="px-6 py-24 text-center text-black bg-white">
+                    {/* 타이틀 SVG */}
+                    <div className="mx-auto w-40 max-w-[70vw]">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src="/svgs/gallery.svg" alt="Gallery" className="w-full h-auto" />
+                    </div>
+
+                    {/* 안내 문구 */}
+                    <div className="mt-6">
+                        <p className="text-[15px] font-noto-sans-kr font-semibold">
+                            사진을 클릭하시면 전체화면 보기가 가능합니다
+                        </p>
+                        <p className="mt-2 text-[12px] text-[#ADA9A9] font-gowun-batang font-bold">
+                            Tap to view full screen
+                        </p>
+                    </div>
+
+                    <GallerySection images={galleryImages} />
+                </section>
+
             </div>
         </main>
     );

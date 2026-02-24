@@ -1,0 +1,287 @@
+"use client";
+
+import Image from "next/image";
+import { useEffect, useMemo, useRef, useState } from "react";
+
+type Props = {
+    images: string[]; // /images/gallery/gallery1.jpg ... gallery30.jpg
+    className?: string;
+};
+
+const BLUR_1x1 =
+    "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==";
+
+export default function GallerySection({ images, className }: Props) {
+    const thumbs = useMemo(() => images.slice(0, 6), [images]);
+
+    // 썸네일(0~5) 개별 조정용 설정
+    // - pos: 잘리는 위치(포커스) => object-[x_y]
+    // - scale: 확대/축소 => scale-105, scale-110 등
+    const thumbStyle = [
+        { pos: "object-[50%_35%]", scale: "scale-130" }, // 0번 (1행 1열)
+        { pos: "object-[50%_0%]", scale: "scale-110" }, // 1번 (1행 2열)
+        { pos: "object-[50%_30%]", scale: "scale-110" }, // 2번 (2행 1열)
+        { pos: "object-[50%_10%]", scale: "scale-170" }, // 3번 (2행 2열)
+        { pos: "object-[50%_0%]", scale: "scale-130" }, // 4번 (3행 1열)
+        { pos: "object-[50%_10%]", scale: "scale-100" }, // 5번 (3행 2열)
+    ] as const;
+
+    const [open, setOpen] = useState(false);
+    const [startIndex, setStartIndex] = useState(0);
+    const [activeIndex, setActiveIndex] = useState(0);
+
+    const scrollerRef = useRef<HTMLDivElement | null>(null);
+
+    const close = () => setOpen(false);
+
+    const openAt = (idx: number) => {
+        setStartIndex(idx);
+        setActiveIndex(idx);
+        setOpen(true);
+    };
+
+    // 모달 열릴 때 해당 인덱스로 스크롤 이동
+    useEffect(() => {
+        if (!open) return;
+        const el = scrollerRef.current;
+        if (!el) return;
+
+        // 다음 tick에 레이아웃 잡힌 후 이동
+        requestAnimationFrame(() => {
+            const w = el.clientWidth;
+            el.scrollTo({ left: w * startIndex, behavior: "instant" as ScrollBehavior });
+        });
+    }, [open, startIndex]);
+
+    // ESC로 닫기, 방향키로 이동
+    useEffect(() => {
+        if (!open) return;
+
+        const onKeyDown = (e: KeyboardEvent) => {
+            if (e.key === "Escape") close();
+            if (e.key === "ArrowRight") goNext();
+            if (e.key === "ArrowLeft") goPrev();
+        };
+
+        window.addEventListener("keydown", onKeyDown);
+        return () => window.removeEventListener("keydown", onKeyDown);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [open, activeIndex]);
+
+    // 스크롤로 activeIndex 추적 (스크롤 스냅 기반)
+    useEffect(() => {
+        if (!open) return;
+        const el = scrollerRef.current;
+        if (!el) return;
+
+        let raf = 0;
+        const onScroll = () => {
+            cancelAnimationFrame(raf);
+            raf = requestAnimationFrame(() => {
+                const w = el.clientWidth || 1;
+                const idx = Math.round(el.scrollLeft / w);
+                if (idx !== activeIndex) setActiveIndex(idx);
+            });
+        };
+
+        el.addEventListener("scroll", onScroll, { passive: true });
+        return () => {
+            cancelAnimationFrame(raf);
+            el.removeEventListener("scroll", onScroll);
+        };
+    }, [open, activeIndex]);
+
+    const scrollToIndex = (idx: number) => {
+        const el = scrollerRef.current;
+        if (!el) return;
+        const w = el.clientWidth;
+        el.scrollTo({ left: w * idx, behavior: "smooth" });
+    };
+
+    const goPrev = () => scrollToIndex(Math.max(0, activeIndex - 1));
+    const goNext = () => scrollToIndex(Math.min(images.length - 1, activeIndex + 1));
+
+    return (
+        <div className={className}>
+            {/* 썸네일 그리드 (2:1 / 2:1 / 1:2) */}
+            {/* TODO: 썸네일 사진마다 위치 조정 */}
+            <div className="mt-10 space-y-3">
+                {/* 1행 - 2:1 */}
+                <div className="grid grid-cols-[2fr_1fr] gap-3">
+                    {[0, 1].map((i) => (
+                        <button
+                            key={i}
+                            type="button"
+                            onClick={() => openAt(i)}
+                            className="relative overflow-hidden bg-[#f3f3f3] h-30"
+                        >
+                            <Image
+                                src={thumbs[i]}
+                                alt={`gallery thumbnail ${i + 1}`}
+                                fill
+                                className={[
+                                    "object-cover transition-transform duration-300 hover:scale-[1.02]",
+                                    thumbStyle[i]?.pos ?? "object-center",
+                                    thumbStyle[i]?.scale ?? "scale-100",
+                                ].join(" ")}
+                                sizes="(max-width:420px) 90vw, 420px"
+                                loading="lazy"
+                                placeholder="blur"
+                                blurDataURL={BLUR_1x1}
+                            />
+                        </button>
+                    ))}
+                </div>
+
+                {/* 2행 - 2:1 */}
+                <div className="grid grid-cols-[2fr_1fr] gap-3">
+                    {[2, 3].map((i) => (
+                        <button
+                            key={i}
+                            type="button"
+                            onClick={() => openAt(i)}
+                            className="relative overflow-hidden bg-[#f3f3f3] h-30"
+                        >
+                            <Image
+                                src={thumbs[i]}
+                                alt={`gallery thumbnail ${i + 1}`}
+                                fill
+                                className={[
+                                    "object-cover transition-transform duration-300 hover:scale-[1.02]",
+                                    thumbStyle[i]?.pos ?? "object-center",
+                                    thumbStyle[i]?.scale ?? "scale-100",
+                                ].join(" ")}
+                                sizes="(max-width:420px) 90vw, 420px"
+                                loading="lazy"
+                                placeholder="blur"
+                                blurDataURL={BLUR_1x1}
+                            />
+                        </button>
+                    ))}
+                </div>
+
+                {/* 3행 - 1:2 */}
+                <div className="grid grid-cols-[1fr_2fr] gap-3">
+                    {[4, 5].map((i) => (
+                        <button
+                            key={i}
+                            type="button"
+                            onClick={() => openAt(i)}
+                            className="relative overflow-hidden bg-[#f3f3f3] h-30"
+                        >
+                            <Image
+                                src={thumbs[i]}
+                                alt={`gallery thumbnail ${i + 1}`}
+                                fill
+                                className={[
+                                    "object-cover transition-transform duration-300 hover:scale-[1.02]",
+                                    thumbStyle[i]?.pos ?? "object-center",
+                                    thumbStyle[i]?.scale ?? "scale-100",
+                                ].join(" ")}
+                                sizes="(max-width:420px) 90vw, 420px"
+                                loading="lazy"
+                                placeholder="blur"
+                                blurDataURL={BLUR_1x1}
+                            />
+                        </button>
+                    ))}
+                </div>
+            </div>
+
+            {/* 모달 */}
+            {open && (
+                <div
+                    className="fixed inset-0 z-[9999] bg-black/80"
+                    role="dialog"
+                    aria-modal="true"
+                    aria-label="Gallery modal"
+                >
+                    {/* 바깥 클릭 닫기 */}
+                    <button
+                        type="button"
+                        className="absolute inset-0 cursor-default"
+                        onClick={close}
+                        aria-label="Close modal background"
+                    />
+
+                    {/* 상단 컨트롤 */}
+                    <div className="absolute left-0 right-0 top-0 z-10 flex items-center justify-between px-4 py-4">
+                        <div className="text-white/80 text-[12px] font-noto-sans-kr">
+                            {activeIndex + 1} / {images.length}
+                        </div>
+
+                        <button
+                            type="button"
+                            onClick={close}
+                            className="rounded-full bg-white/10 px-3 py-2 text-white text-[12px] hover:bg-white/20"
+                            aria-label="Close modal"
+                        >
+                            닫기
+                        </button>
+                    </div>
+
+                    {/* 좌우 버튼 (모바일 스와이프가 메인이지만, 버튼도 제공) */}
+                    <button
+                        type="button"
+                        onClick={goPrev}
+                        className="absolute left-2 top-1/2 -translate-y-1/2 z-10 rounded-full bg-white/10 p-3 text-white hover:bg-white/20 disabled:opacity-40"
+                        disabled={activeIndex === 0}
+                        aria-label="Previous image"
+                    >
+                        ‹
+                    </button>
+                    <button
+                        type="button"
+                        onClick={goNext}
+                        className="absolute right-2 top-1/2 -translate-y-1/2 z-10 rounded-full bg-white/10 p-3 text-white hover:bg-white/20 disabled:opacity-40"
+                        disabled={activeIndex === images.length - 1}
+                        aria-label="Next image"
+                    >
+                        ›
+                    </button>
+
+                    {/* 이미지 스크롤러 (가로 스냅) */}
+                    <div
+                        ref={scrollerRef}
+                        className={[
+                            "absolute inset-0",
+                            "overflow-x-auto overflow-y-hidden",
+                            "snap-x snap-mandatory",
+                            "flex",
+                            "touch-pan-x",
+                        ].join(" ")}
+                    >
+                        {images.map((src, idx) => {
+                            // 현재/인접만 priority로 조금 더 빠르게(나머지는 lazy)
+                            const near = Math.abs(idx - activeIndex) <= 1;
+
+                            return (
+                                <div
+                                    key={src}
+                                    className="relative h-full w-full flex-none snap-center"
+                                >
+                                    <div className="absolute inset-0 flex items-center justify-center px-4">
+                                        <div className="relative w-full max-w-[520px] h-[78vh]">
+                                            <Image
+                                                src={src}
+                                                alt={`gallery image ${idx + 1}`}
+                                                fill
+                                                className="object-contain"
+                                                sizes="100vw"
+                                                loading={near ? "eager" : "lazy"}
+                                                priority={near}
+                                                quality={75}
+                                                placeholder="blur"
+                                                blurDataURL={BLUR_1x1}
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+                </div>
+            )}
+        </div>
+    );
+}

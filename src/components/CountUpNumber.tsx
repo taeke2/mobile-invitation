@@ -14,7 +14,7 @@ type Props = {
     /** className */
     className?: string;
 
-    /** ✅ 화면에 보일 때 시작 */
+    /** 화면에 보일 때 시작 */
     startOnView?: boolean;
     /** IntersectionObserver threshold */
     threshold?: number;
@@ -44,7 +44,7 @@ export default function CountUpNumber({
     const [value, setValue] = useState(safeFrom);
     const [canStart, setCanStart] = useState(!startOnView);
 
-    // ✅ 뷰포트 진입 감지
+    // 뷰포트 진입 감지
     useEffect(() => {
         if (!startOnView) return;
 
@@ -72,7 +72,7 @@ export default function CountUpNumber({
         return () => io.disconnect();
     }, [startOnView, threshold, once, safeFrom]);
 
-    // ✅ 카운트업 실행
+    // 카운트업 실행
     useEffect(() => {
         if (!canStart) return;
 
