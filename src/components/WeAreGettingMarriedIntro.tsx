@@ -36,9 +36,11 @@ export default function WeAreGettingMarriedIntro() {
         if (!svg) return;
 
         svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
+        svg.style.margin = "0 auto";
         svg.style.display = "block";
         svg.style.width = "100%";
         svg.style.height = "auto";
+
 
         let paths = Array.from(svg.querySelectorAll<SVGPathElement>("path"));
         if (REVERSE) paths = paths.reverse();
