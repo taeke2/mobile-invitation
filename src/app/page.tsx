@@ -7,13 +7,7 @@ import FadeInOnView from "@/src/components/FadeInOnView";
 import CountUpNumber from "@/src/components/CountUpNumber";
 import GallerySection from "@/src/components/GallerySection";
 import RsvpSection from "@/src/components/RsvpSection";
-
-import dynamic from "next/dynamic";
-
-const WeAreGettingMarriedIntro = dynamic(
-    () => import("@/src/components/WeAreGettingMarriedIntro"),
-    { ssr: false }
-);
+import MainSection from "@/src/components/MainSection";
 
 type AccountItem = {
     role: string;
@@ -203,7 +197,6 @@ const Modal = ({
 
 export default function Home() {
     // section3 캘린더 날짜 계산
-
     const diffDays = useMemo(() => {
         if (typeof window === "undefined") return 0;
 
@@ -366,27 +359,8 @@ export default function Home() {
     return (
         <main className="min-h-screen bg-[#722020] flex justify-center">
             <div className="w-full max-w-97.5 bg-white relative">
-                {/* section01 - Getting married */}
-                <section className="relative min-h-screen overflow-hidden">
-                    {/* 메인 이미지 */}
-                    <Image
-                        src="/images/main_image.jpg"
-                        alt="main image"
-                        fill
-                        priority
-                        className="object-cover scale-140 object-[35%_center]"
-                    />
-                    {/* 상단 오버레이(그 위에 글씨/로고) */}
-                    <div className="relative pt-10 z-10 flex justify-center">
-                        <WeAreGettingMarriedIntro />
-                    </div>
-                    {/* 이름 */}
-                    <div className="absolute bottom-7 left-1/2 -translate-x-1/2 text-center z-10">
-                        <p className="font-bodoni-sc text-[12px] text-[#414141]">
-                            TAEK<span className={"font-bodoni-sc text-[8px]"}> & </span>JUNG
-                        </p>
-                    </div>
-                </section>
+                {/* section01 - Main */}
+                <MainSection />
 
                 {/* section2 - 저희 결혼합니다 */}
                 <section className="px-6 py-24 text-center text-black">
