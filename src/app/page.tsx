@@ -6,6 +6,7 @@ import Image from "next/image";
 import FadeInOnView from "@/src/components/FadeInOnView";
 import CountUpNumber from "@/src/components/CountUpNumber";
 import GallerySection from "@/src/components/GallerySection";
+import RsvpSection from "@/src/components/RsvpSection";
 
 import dynamic from "next/dynamic";
 
@@ -961,6 +962,9 @@ export default function Home() {
                         </div>
                     </div>
                 </section>
+
+                {/* section9 - RSVP */}
+                <RsvpSection showToast={showToast} />
 
                 {/* Copy Toast (공통) */}
                 <div className={[

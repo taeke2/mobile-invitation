@@ -15,7 +15,7 @@ export default function WeAreGettingMarriedIntro() {
         let alive = true;
 
         (async () => {
-            const res = await fetch("/svgs/gettingmarried2.svg", { cache: "no-store" });
+            const res = await fetch("/svgs/gettingmarried.svg", { cache: "no-store" });
             const text = await res.text();
             if (!alive) return;
             setSvgText(text);
