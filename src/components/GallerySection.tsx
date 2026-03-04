@@ -2,9 +2,11 @@
 
 import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
+import FadeInOnView from "@/src/components/FadeInOnView";
 
 type Props = {
-    images: string[]; // /images/gallery/gallery1.jpg ... gallery30.jpg
+    /** 기본 30장: /images/gallery/gallery1.jpg ~ gallery30.jpg */
+    images?: string[];
     className?: string;
 };
 
@@ -12,11 +14,17 @@ const BLUR_1x1 =
     "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==";
 
 export default function GallerySection({ images, className }: Props) {
-    const thumbs = useMemo(() => images.slice(0, 6), [images]);
+    // ✅ section4에서 쓰던 이미지 배열 생성까지 여기로 이동
+    const defaultImages = useMemo(
+        () => Array.from({ length: 30 }, (_, i) => `/images/gallery/gallery${i + 1}.jpg`),
+        []
+    );
+
+    const finalImages = images?.length ? images : defaultImages;
+
+    const thumbs = useMemo(() => finalImages.slice(0, 6), [finalImages]);
 
     // 썸네일(0~5) 개별 조정용 설정
-    // - pos: 잘리는 위치(포커스) => object-[x_y]
-    // - scale: 확대/축소 => scale-105, scale-110 등
     const thumbStyle = [
         { pos: "object-[50%_35%]", scale: "scale-130" }, // 0번 (1행 1열)
         { pos: "object-[50%_0%]", scale: "scale-110" }, // 1번 (1행 2열)
@@ -34,9 +42,9 @@ export default function GallerySection({ images, className }: Props) {
 
     const close = () => setOpen(false);
 
-    const openAt = (idx: number) => {
-        setStartIndex(idx);
-        setActiveIndex(idx);
+    const openFirst = (idx: number) => {
+        setStartIndex(0);
+        setActiveIndex(0);
         setOpen(true);
     };
 
@@ -46,7 +54,6 @@ export default function GallerySection({ images, className }: Props) {
         const el = scrollerRef.current;
         if (!el) return;
 
-        // 다음 tick에 레이아웃 잡힌 후 이동
         requestAnimationFrame(() => {
             const w = el.clientWidth;
             el.scrollTo({ left: w * startIndex, behavior: "instant" as ScrollBehavior });
@@ -99,93 +106,118 @@ export default function GallerySection({ images, className }: Props) {
     };
 
     const goPrev = () => scrollToIndex(Math.max(0, activeIndex - 1));
-    const goNext = () => scrollToIndex(Math.min(images.length - 1, activeIndex + 1));
+    const goNext = () => scrollToIndex(Math.min(finalImages.length - 1, activeIndex + 1));
 
     return (
-        <div className={className}>
-            {/* 썸네일 그리드 (2:1 / 2:1 / 1:2) */}
-            {/* TODO: 썸네일 사진마다 위치 조정 */}
+        <section className={["px-6 py-12 text-center text-black bg-white", className].join(" ")}>
+            {/* 타이틀 SVG */}
+            <FadeInOnView>
+                <div className="mx-auto w-40 max-w-[70vw]">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src="/svgs/gallery.svg" alt="Gallery" className="w-full h-auto" />
+                </div>
+            </FadeInOnView>
+
+            {/* 안내 문구 */}
+            <FadeInOnView>
+                <div className="mt-6">
+                    <p className="text-[15px] font-noto-sans-kr font-semibold">
+                        사진을 클릭하시면 전체화면 보기가 가능합니다
+                    </p>
+                    <p className="mt-2 text-[13px] text-[#ADA9A9] font-gowun-batang font-bold">
+                        Tap to view full screen
+                    </p>
+                </div>
+            </FadeInOnView>
+
+            {/* 썸네일 그리드 */}
             <div className="mt-10 space-y-3">
                 {/* 1행 - 2:1 */}
-                <div className="grid grid-cols-[2fr_1fr] gap-3">
-                    {[0, 1].map((i) => (
-                        <button
-                            key={i}
-                            type="button"
-                            onClick={() => openAt(i)}
-                            className="relative overflow-hidden bg-[#f3f3f3] h-30"
-                        >
-                            <Image
-                                src={thumbs[i]}
-                                alt={`gallery thumbnail ${i + 1}`}
-                                fill
-                                className={[
-                                    "object-cover transition-transform duration-300 hover:scale-[1.02]",
-                                    thumbStyle[i]?.pos ?? "object-center",
-                                    thumbStyle[i]?.scale ?? "scale-100",
-                                ].join(" ")}
-                                sizes="(max-width:420px) 90vw, 420px"
-                                loading="lazy"
-                                placeholder="blur"
-                                blurDataURL={BLUR_1x1}
-                            />
-                        </button>
-                    ))}
-                </div>
+                <FadeInOnView>
+                    <div className="grid grid-cols-[2fr_1fr] gap-3">
+                        {[0, 1].map((i) => (
+                            <button
+                                key={i}
+                                type="button"
+                                onClick={() => openFirst(i)}
+                                className="relative overflow-hidden bg-[#f3f3f3] h-30"
+                            >
+                                <Image
+                                    src={thumbs[i]}
+                                    alt={`gallery thumbnail ${i + 1}`}
+                                    fill
+                                    className={[
+                                        "object-cover transition-transform duration-300 hover:scale-[1.02]",
+                                        thumbStyle[i]?.pos ?? "object-center",
+                                        thumbStyle[i]?.scale ?? "scale-100",
+                                    ].join(" ")}
+                                    sizes="(max-width:420px) 90vw, 420px"
+                                    loading="lazy"
+                                    placeholder="blur"
+                                    blurDataURL={BLUR_1x1}
+                                />
+                            </button>
+                        ))}
+                    </div>
+                </FadeInOnView>
 
                 {/* 2행 - 2:1 */}
-                <div className="grid grid-cols-[2fr_1fr] gap-3">
-                    {[2, 3].map((i) => (
-                        <button
-                            key={i}
-                            type="button"
-                            onClick={() => openAt(i)}
-                            className="relative overflow-hidden bg-[#f3f3f3] h-30"
-                        >
-                            <Image
-                                src={thumbs[i]}
-                                alt={`gallery thumbnail ${i + 1}`}
-                                fill
-                                className={[
-                                    "object-cover transition-transform duration-300 hover:scale-[1.02]",
-                                    thumbStyle[i]?.pos ?? "object-center",
-                                    thumbStyle[i]?.scale ?? "scale-100",
-                                ].join(" ")}
-                                sizes="(max-width:420px) 90vw, 420px"
-                                loading="lazy"
-                                placeholder="blur"
-                                blurDataURL={BLUR_1x1}
-                            />
-                        </button>
-                    ))}
-                </div>
+                <FadeInOnView>
+                    <div className="grid grid-cols-[2fr_1fr] gap-3">
+                        {[2, 3].map((i) => (
+                            <button
+                                key={i}
+                                type="button"
+                                onClick={() => openFirst(i)}
+                                className="relative overflow-hidden bg-[#f3f3f3] h-30"
+                            >
+                                <Image
+                                    src={thumbs[i]}
+                                    alt={`gallery thumbnail ${i + 1}`}
+                                    fill
+                                    className={[
+                                        "object-cover transition-transform duration-300 hover:scale-[1.02]",
+                                        thumbStyle[i]?.pos ?? "object-center",
+                                        thumbStyle[i]?.scale ?? "scale-100",
+                                    ].join(" ")}
+                                    sizes="(max-width:420px) 90vw, 420px"
+                                    loading="lazy"
+                                    placeholder="blur"
+                                    blurDataURL={BLUR_1x1}
+                                />
+                            </button>
+                        ))}
+                    </div>
+                </FadeInOnView>
 
                 {/* 3행 - 1:2 */}
-                <div className="grid grid-cols-[1fr_2fr] gap-3">
-                    {[4, 5].map((i) => (
-                        <button
-                            key={i}
-                            type="button"
-                            onClick={() => openAt(i)}
-                            className="relative overflow-hidden bg-[#f3f3f3] h-30"
-                        >
-                            <Image
-                                src={thumbs[i]}
-                                alt={`gallery thumbnail ${i + 1}`}
-                                fill
-                                className={[
-                                    "object-cover transition-transform duration-300 hover:scale-[1.02]",
-                                    thumbStyle[i]?.pos ?? "object-center",
-                                    thumbStyle[i]?.scale ?? "scale-100",
-                                ].join(" ")}
-                                sizes="(max-width:420px) 90vw, 420px"
-                                loading="lazy"
-                                placeholder="blur"
-                                blurDataURL={BLUR_1x1}
-                            />
-                        </button>
-                    ))}
-                </div>
+                <FadeInOnView>
+                    <div className="grid grid-cols-[1fr_2fr] gap-3">
+                        {[4, 5].map((i) => (
+                            <button
+                                key={i}
+                                type="button"
+                                onClick={() => openFirst(i)}
+                                className="relative overflow-hidden bg-[#f3f3f3] h-30"
+                            >
+                                <Image
+                                    src={thumbs[i]}
+                                    alt={`gallery thumbnail ${i + 1}`}
+                                    fill
+                                    className={[
+                                        "object-cover transition-transform duration-300 hover:scale-[1.02]",
+                                        thumbStyle[i]?.pos ?? "object-center",
+                                        thumbStyle[i]?.scale ?? "scale-100",
+                                    ].join(" ")}
+                                    sizes="(max-width:420px) 90vw, 420px"
+                                    loading="lazy"
+                                    placeholder="blur"
+                                    blurDataURL={BLUR_1x1}
+                                />
+                            </button>
+                        ))}
+                    </div>
+                </FadeInOnView>
             </div>
 
             {/* 모달 */}
@@ -207,7 +239,7 @@ export default function GallerySection({ images, className }: Props) {
                     {/* 상단 컨트롤 */}
                     <div className="absolute left-0 right-0 top-0 z-10 flex items-center justify-between px-4 py-4">
                         <div className="text-white/80 text-[12px] font-noto-sans-kr">
-                            {activeIndex + 1} / {images.length}
+                            {activeIndex + 1} / {finalImages.length}
                         </div>
 
                         <button
@@ -235,7 +267,7 @@ export default function GallerySection({ images, className }: Props) {
                         <button
                             type="button"
                             onClick={goNext}
-                            disabled={activeIndex === images.length - 1}
+                            disabled={activeIndex === finalImages.length - 1}
                             className="text-white text-2xl disabled:opacity-30"
                             aria-label="Next image"
                         >
@@ -243,7 +275,7 @@ export default function GallerySection({ images, className }: Props) {
                         </button>
                     </div>
 
-                    {/* 이미지 스크롤러 (가로 스냅) */}
+                    {/* 이미지 스크롤러 */}
                     <div
                         ref={scrollerRef}
                         className={[
@@ -254,15 +286,11 @@ export default function GallerySection({ images, className }: Props) {
                             "touch-pan-x",
                         ].join(" ")}
                     >
-                        {images.map((src, idx) => {
-                            // 현재/인접만 priority로 조금 더 빠르게(나머지는 lazy)
+                        {finalImages.map((src, idx) => {
                             const near = Math.abs(idx - activeIndex) <= 1;
 
                             return (
-                                <div
-                                    key={src}
-                                    className="relative h-full w-full flex-none snap-center"
-                                >
+                                <div key={src} className="relative h-full w-full flex-none snap-center">
                                     <div className="absolute inset-0 flex items-center justify-center px-4">
                                         <div className="relative w-full max-w-[520px] h-[78vh]">
                                             <Image
@@ -285,6 +313,6 @@ export default function GallerySection({ images, className }: Props) {
                     </div>
                 </div>
             )}
-        </div>
+        </section>
     );
 }

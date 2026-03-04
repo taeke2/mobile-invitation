@@ -197,11 +197,6 @@ const Modal = ({
 };
 
 export default function Home() {
-    // section4 갤러리 배열 관리
-    const galleryImages = useMemo(
-        () => Array.from({length: 30}, (_, i) => `/images/gallery/gallery${i + 1}.jpg`),
-        []
-    );
     // 공통 Toast (주소/계좌 복사 공용)
     const [toastOpen, setToastOpen] = useState(false);
 
@@ -348,25 +343,8 @@ export default function Home() {
                 <WeddingDaySection />
 
                 {/* section4 - Gallery */}
-                <section className="px-6 py-12 text-center text-black bg-white">
-                    {/* 타이틀 SVG */}
-                    <div className="mx-auto w-40 max-w-[70vw]">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img src="/svgs/gallery.svg" alt="Gallery" className="w-full h-auto"/>
-                    </div>
+                <GallerySection />
 
-                    {/* 안내 문구 */}
-                    <div className="mt-6">
-                        <p className="text-[15px] font-noto-sans-kr font-semibold">
-                            사진을 클릭하시면 전체화면 보기가 가능합니다
-                        </p>
-                        <p className="mt-2 text-[12px] text-[#ADA9A9] font-gowun-batang font-bold">
-                            Tap to view full screen
-                        </p>
-                    </div>
-
-                    <GallerySection images={galleryImages}/>
-                </section>
 
                 {/* section5 - Location */}
                 <section className="py-12 text-center text-black bg-white">
