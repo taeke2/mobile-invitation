@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react";
  * FadeInOnView.tsx
  * - 여기 상단 상수만 조절하면 전체 애니메이션 속도/이동거리 통일됨
  */
-const FADE_DURATION_MS = 700;      // 페이드/이동 애니메이션 속도 (ms)
+const FADE_DURATION_MS = 3000;      // 페이드/이동 애니메이션 속도 (ms)
 const START_TRANSLATE_CLASS = "translate-y-20"; // 처음 위치 (아래로 8)
 const THRESHOLD = 0.4;             // 화면에 얼마나 들어오면 트리거할지
 

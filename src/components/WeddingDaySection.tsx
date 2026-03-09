@@ -5,6 +5,7 @@ import CountUpNumber from "@/src/components/CountUpNumber";
 import FadeInOnView from "@/src/components/FadeInOnView";
 
 export default function WeddingDaySection() {
+    // TODO: 웨딩데이는 FadeInOnView 빼기
     // D-day 계산 (컴포넌트 내부로 이동)
     const diffDays = useMemo(() => {
         if (typeof window === "undefined") return 0;
