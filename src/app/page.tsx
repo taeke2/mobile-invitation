@@ -1,6 +1,6 @@
 "use client";
 
-import {useEffect, useMemo, useState} from "react";
+import {useEffect, useState} from "react";
 import { supabase } from "@/src/lib/supabaseClient";
 import Image from "next/image";
 import GallerySection from "@/src/components/GallerySection";
@@ -8,7 +8,8 @@ import RsvpSection from "@/src/components/RsvpSection";
 import MainSection from "@/src/components/MainSection";
 import TextSection from "@/src/components/TextSection";
 import WeddingDaySection from "@/src/components/WeddingDaySection";
-
+import Toast from "@/src/components/Toast";
+import LocationSection from "@/src/components/LocationSection";
 
 type AccountItem = {
     role: string;
@@ -197,7 +198,9 @@ const Modal = ({
 };
 
 export default function Home() {
-    // 공통 Toast (주소/계좌 복사 공용)
+    // ==========================================================
+    // Toast 시작
+    // ==========================================================
     const [toastOpen, setToastOpen] = useState(false);
 
     const [toastMsg, setToastMsg] = useState("");
@@ -224,15 +227,33 @@ export default function Home() {
         // fallback (모바일 / http 대응)
         if (!success) {
             try {
+                const scrollX = window.scrollX;
+                const scrollY = window.scrollY;
+
                 const textarea = document.createElement("textarea");
                 textarea.value = text;
+                textarea.setAttribute("readonly", "");
                 textarea.style.position = "fixed";
+                textarea.style.top = "0";
+                textarea.style.left = "-9999px";
                 textarea.style.opacity = "0";
+                textarea.style.fontSize = "16px"; // iOS 확대/스크롤 방지에 도움
+
                 document.body.appendChild(textarea);
-                textarea.focus();
+
+                try {
+                    textarea.focus({ preventScroll: true });
+                } catch {
+                    textarea.focus();
+                }
+
                 textarea.select();
+                textarea.setSelectionRange(0, textarea.value.length);
+
                 success = document.execCommand("copy");
+
                 document.body.removeChild(textarea);
+                window.scrollTo(scrollX, scrollY);
             } catch {
                 success = false;
             }
@@ -240,8 +261,11 @@ export default function Home() {
 
         showToast(success ? "복사되었습니다" : "복사에 실패했습니다");
     };
-    // section6 - 마음 전하실 곳 (데이터)
+    // ==========================================================
+    // Toast 끝
+    // ==========================================================
 
+    // section6 - 마음 전하실 곳 (데이터)
     const groomAccounts: AccountItem[] = [
         {role: "신랑", name: "허성택", bank: "국민", account: "459002-04-177607"},
         {role: "신랑 어머니", name: "박성연", bank: "농협", account: "352-1351-2482-33"},
@@ -345,141 +369,8 @@ export default function Home() {
                 {/* section4 - Gallery */}
                 <GallerySection />
 
-
                 {/* section5 - Location */}
-                <section className="py-12 text-center text-black bg-white">
-                    {/* 타이틀 SVG */}
-                    <div className="mx-auto w-40 max-w-[70vw]">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img src="/svgs/location.svg" alt="Location" className="w-full h-auto"/>
-                    </div>
-
-                    {/* 장소명 */}
-                    <div className="mt-10 font-noto-sans-kr">
-                        <div className="text-[15px] font-semibold">빌라드지디 논현</div>
-
-                        {/* 주소 + 복사 */}
-                        <div
-                            className="flex items-center justify-center text-[12px] text-[#ADA9A9] font-noto-sans-kr font-bold">
-                            <span>서울특별시 강남구 언주로126길 23</span>
-
-                            <button
-                                type="button"
-                                onClick={() => copyText("서울특별시 강남구 언주로126길 23")}
-                                className="inline-flex items-center justify-center active:scale-[0.77] py-3 px-2"
-                                aria-label="주소 복사"
-                            >
-                                {/* eslint-disable-next-line @next/next/no-img-element */}
-                                <img src="/svgs/copy.svg" alt="copy" className="h-3 w-3"/>
-                            </button>
-                        </div>
-                    </div>
-
-                    {/* 지도 이미지 */}
-                    <div className="mt-6 overflow-hidden rounded-[14px] border border-[#EFEFEF]">
-                        <Image
-                            src="/images/map2.jpg"
-                            alt="map"
-                            width={900}
-                            height={560}
-                            className="h-auto w-full"
-                            sizes="(max-width: 390px) 100vw, 390px"
-                        />
-                    </div>
-
-                    {/* 지도 앱 버튼 */}
-                    <div className="px-6 mt-10 grid grid-cols-3 gap-3">
-                        <a
-                            href="https://map.naver.com/v5/search/%EB%B9%8C%EB%9D%BC%EB%93%9C%EC%A7%80%EB%94%94%20%EB%85%BC%ED%98%84"
-                            target="_blank"
-                            rel="noreferrer"
-                            className="h-10 flex items-center justify-center rounded-sm text-[13px] font-noto-sans-kr font-semibold text-[#ADA9A9] bg-[#EDEDED]/20 shadow-[2px_2px_2px_rgba(0,0,0,0.09)]
-                                active:scale-[0.99] active:bg-[#AC5344] active:text-white"
-                        >
-                            네이버 지도
-                        </a>
-                        <a
-                            href="https://apis.openapi.sk.com/tmap/app/search?query=%EB%B9%8C%EB%9D%BC%EB%93%9C%EC%A7%80%EB%94%94%20%EB%85%BC%ED%98%84"
-                            target="_blank"
-                            rel="noreferrer"
-                            className="h-10 flex items-center justify-center rounded-sm bg-[#EDEDED]/20 text-[13px] font-noto-sans-kr font-semibold text-[#ADA9A9] shadow-[2px_2px_2px_rgba(0,0,0,0.09)]
-                                active:scale-[0.99] active:bg-[#AC5344] active:text-white"
-                        >
-                            {/* TODO : TMAP - 연결하기 */}
-                            T MAP
-                        </a>
-                        <a
-                            href="https://map.kakao.com/?q=%EB%B9%8C%EB%9D%BC%EB%93%9C%EC%A7%80%EB%94%94%20%EB%85%BC%ED%98%84"
-                            target="_blank"
-                            rel="noreferrer"
-                            className="h-10 flex items-center justify-center rounded-sm bg-[#EDEDED]/20 text-[13px] font-noto-sans-kr font-semibold text-[#ADA9A9] shadow-[2px_2px_2px_rgba(0,0,0,0.09)]
-                                active:scale-[0.99] active:bg-[#AC5344] active:text-white"
-                        >
-                            카카오 맵
-                        </a>
-                    </div>
-
-                    {/* 안내 블록 */}
-                    <div className="px-6 mt-8 text-left">
-                        {/* P - 주차 */}
-                        <div className="flex gap-2">
-                            <div
-                                className="h-5 w-5 shrink-0 rounded-md border border-black flex items-center justify-center font-noto-sans-kr text-[11px] font-semibold">
-                                P
-                            </div>
-                            <div className="flex-1">
-                                <div className="font-noto-sans-kr text-[13px] font-semibold">주차</div>
-                                <div className="mt-3 space-y-2 text-[12px] font-noto-sans-kr">
-                                    <p>
-                                        <span className="font-semibold">제1주차장 :</span> 서울 강남구 언주로126길 23 (논현동)
-                                    </p>
-                                    <p>
-                                        <span className="font-semibold">제2주차장 :</span> 서울 강남구 학동로 342 에스케이 허브블루
-                                    </p>
-                                </div>
-                                <div
-                                    className="mt-3 space-y-1 text-[11px] text-[#6B6B6B] font-noto-sans-kr leading-relaxed">
-                                    <p>*제1주차장은 발렛주차로 만차시 제2주차장으로 안내해드립니다.</p>
-                                    <p>*제2주차장은 도보 10분 / 셔틀이용 가능합니다.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* B - 셔틀버스 */}
-                        <div className="flex gap-2 mt-10">
-                            <div
-                                className="h-5 w-5 shrink-0 rounded-md border border-black flex items-center justify-center font-noto-sans-kr text-[11px] font-semibold">
-                                B
-                            </div>
-                            <div className="flex-1">
-                                <div className="font-noto-sans-kr text-[13px] font-semibold">셔틀버스</div>
-                                <div
-                                    className="mt-3 space-y-1 text-[11px] text-[#6B6B6B] font-noto-sans-kr leading-relaxed">
-                                    <p>*예식 1시간 전부터 10분간격으로 셔틀 운행</p>
-                                    <p>*강남구청역 2번출구 20m 직진, 버스 승강장 옆 노란색 셔틀버스</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* S - 지하철 */}
-                        <div className="flex gap-2 mt-10">
-                            <div
-                                className="h-5 w-5 shrink-0 rounded-md border border-black flex items-center justify-center font-noto-sans-kr text-[11px] font-semibold">
-                                S
-                            </div>
-                            <div className="flex-1">
-                                <div className="font-noto-sans-kr text-[13px] font-semibold">지하철</div>
-                                <div className="mt-3 text-[12px] font-noto-sans-kr font-semibold">
-                                    7호선 강남구청역 2번 출구
-                                </div>
-                                <div
-                                    className="mt-3 space-y-2 text-[11px] text-[#6B6B6B] font-noto-sans-kr leading-relaxed">
-                                    <p>*2번출구 20m 직진, 버스승강장 옆 셔틀버스 이용</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+                <LocationSection copyText={copyText} />
 
                 {/* section6 - 마음 전하실 곳 */}
                 <section className="px-6 py-16 text-center text-black bg-[url('/images/paper_bg.jpg')] bg-cover bg-center">
@@ -751,23 +642,7 @@ export default function Home() {
                 {/* section9 - RSVP */}
                 <RsvpSection showToast={showToast} />
 
-                {/* Copy Toast (공통) */}
-                <div className={[
-                        "fixed left-1/2 -translate-x-1/2 bottom-6 z-9999",
-                        "transition-all duration-300",
-                        toastOpen
-                            ? "opacity-100 translate-y-0"
-                            : "opacity-0 translate-y-2 pointer-events-none",
-                    ].join(" ")}
-                >
-                    <div
-                        className={`rounded-full px-4 py-3 text-white text-[13px] font-noto-sans-kr ${
-                            toastMsg.includes("실패") ? "bg-red-600" : "bg-black"
-                        }`}
-                    >
-                        {toastMsg}
-                    </div>
-                </div>
+                <Toast open={toastOpen} message={toastMsg} />
             </div>
         </main>
     );

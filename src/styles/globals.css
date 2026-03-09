@@ -54,3 +54,22 @@ body {
 .animate-accordion-fade {
   animation: accordionFade 320ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
+
+.map-scroll::-webkit-scrollbar {
+  height: 6px;
+}
+
+.map-scroll::-webkit-scrollbar-track {
+  background: #eee;
+  border-radius: 10px;
+}
+
+.map-scroll::-webkit-scrollbar-thumb {
+  background: #B35B49;
+  border-radius: 10px;
+}
+
+.map-scroll {
+  scrollbar-color: #B35B49 #eee;
+  scrollbar-width: thin;
+}
