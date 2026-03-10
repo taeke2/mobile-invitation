@@ -76,7 +76,7 @@ const MapModal = ({
                         <div className="mt-4 overflow-hidden border border-[#EFEFEF] bg-white">
                             <div className="overflow-x-scroll overflow-y-hidden map-scroll">
                                 <Image
-                                    src="/images/map.jpg"
+                                    src="/images/location.jpg"
                                     alt="확대된 지도"
                                     width={1400}
                                     height={260}
@@ -135,7 +135,7 @@ export default function LocationSection({ copyText }: Props) {
                     >
                         <div className="overflow-hidden border border-[#EFEFEF]">
                             <Image
-                                src="/images/map.jpg"
+                                src="/images/location.jpg"
                                 alt="map"
                                 width={900}
                                 height={560}
@@ -149,8 +149,12 @@ export default function LocationSection({ copyText }: Props) {
                     {/* S - 지하철 */}
                     <FadeInOnView>
                         <div className="flex gap-2">
-                            <div className="h-5 w-5 shrink-0 rounded-md border border-black flex items-center justify-center font-noto-sans-kr text-[11px] font-semibold">
-                                S
+                            <div className="h-5 w-5 shrink-0 flex items-center justify-center">
+                                <img
+                                    src="/svgs/bus.svg"
+                                    alt="bus"
+                                    className="h-[20px] w-[20px]"
+                                />
                             </div>
                             <div className="flex-1">
                                 <div className="font-noto-sans-kr text-[14px] font-semibold">지하철 이용 시</div>
@@ -167,8 +171,12 @@ export default function LocationSection({ copyText }: Props) {
                     {/* B - 버스 */}
                     <FadeInOnView>
                         <div className="mt-6 flex gap-2">
-                            <div className="h-5 w-5 shrink-0 rounded-md border border-black flex items-center justify-center font-noto-sans-kr text-[11px] font-semibold">
-                                B
+                            <div className="h-5 w-5 shrink-0 flex items-center justify-center">
+                                <img
+                                    src="/svgs/subway.svg"
+                                    alt="subway"
+                                    className="h-[20px] w-[20px]"
+                                />
                             </div>
                             <div className="flex-1">
                                 <div className="font-noto-sans-kr text-[14px] font-semibold">버스 이용 시</div>
@@ -186,8 +194,12 @@ export default function LocationSection({ copyText }: Props) {
                     {/* P - 자가용 */}
                     <FadeInOnView>
                         <div className="mt-6 flex gap-2">
-                            <div className="h-5 w-5 shrink-0 rounded-md border border-black flex items-center justify-center font-noto-sans-kr text-[11px] font-semibold">
-                                P
+                            <div className="h-5 w-5 shrink-0 flex items-center justify-center">
+                                <img
+                                    src="/svgs/car.svg"
+                                    alt="car"
+                                    className="h-[20px] w-[20px]"
+                                />
                             </div>
                             <div className="flex-1">
                                 <div className="font-noto-sans-kr text-[14px] font-semibold">자가용 이용 시</div>
@@ -237,8 +249,12 @@ export default function LocationSection({ copyText }: Props) {
                     {/* 셔틀버스 */}
                     <FadeInOnView>
                         <div className="mt-6 flex gap-2">
-                            <div className="h-5 w-5 shrink-0 rounded-md border border-black flex items-center justify-center font-noto-sans-kr text-[11px] font-semibold">
-                                P
+                            <div className="h-5 w-5 shrink-0 flex items-center justify-center">
+                                <img
+                                    src="/svgs/shuttle.svg"
+                                    alt="shuttle"
+                                    className="h-[20px] w-[20px]"
+                                />
                             </div>
                             <div className="flex-1">
                                 <div className="font-noto-sans-kr text-[14px] font-semibold">셔틀버스 운행 시간</div>
