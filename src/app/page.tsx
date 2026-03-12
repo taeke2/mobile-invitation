@@ -11,6 +11,7 @@ import LocationSection from "@/src/components/LocationSection";
 import WithLoveSection from "@/src/components/WithLoveSection";
 import MessageSection from "@/src/components/MessageSection";
 import InformationSection from "@/src/components/InformationSection";
+import Footer from "@/src/components/Footer";
 
 export default function Home() {
     // ==========================================================
@@ -109,6 +110,9 @@ export default function Home() {
 
                 {/* section9 - RSVP */}
                 <RsvpSection showToast={showToast} />
+
+                {/* footer */}
+                <Footer />
 
                 <Toast open={toastOpen} message={toastMsg} />
             </div>
