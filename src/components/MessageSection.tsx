@@ -28,8 +28,8 @@ const MessageCard = ({item}: { item: GuestbookMessage }) => {
                 backgroundPosition: "center",
             }}
         >
-            <div className="font-gowun-batang text-[13px] leading-relaxed whitespace-pre-wrap">{item.message}</div>
-            <div className="mt-4 font-gowun-batang text-[13px] text-[#AC5344]">From. {item.name}</div>
+            <div className="font-gowun-batang text-[11px] leading-relaxed whitespace-pre-wrap">{item.message}</div>
+            <div className="mt-2 font-gowun-batang text-[11px] text-[#AC5344]">From. {item.name}</div>
         </div>
     );
 };
@@ -187,7 +187,7 @@ export default function MessageSection({showToast}: Props) {
     };
 
     return (
-        <section className="bg-white px-6 pt-16 pb-18 text-center text-black">
+        <section className="bg-white px-6 pt-20 pb-20 text-center text-black">
             {/* 타이틀 SVG */}
             <FadeInOnView>
                 <div className="mx-auto w-40 max-w-[70vw]">
@@ -197,16 +197,16 @@ export default function MessageSection({showToast}: Props) {
             </FadeInOnView>
 
             <FadeInOnView>
-                <div className="mt-10 text-[15px] font-noto-sans-kr font-semibold">
+                <div className="mt-7 text-[13px] font-noto-sans-kr font-semibold">
                     저희에게 따뜻한 축복의 말을 남겨주세요
                 </div>
             </FadeInOnView>
 
             {/* 카드 3개 */}
             <FadeInOnView>
-                <div className="mt-10 space-y-6">
+                <div className="mt-10 space-y-4">
                     {gbLoading ? (
-                        <div className="py-12 font-gowun-batang text-[13px] text-[#6B6B6B]">
+                        <div className="py-12 font-gowun-batang text-[11px] text-black">
                             불러오는 중...
                         </div>
                     ) : (
@@ -221,7 +221,7 @@ export default function MessageSection({showToast}: Props) {
                     <button
                         type="button"
                         onClick={() => setGbOpenAll(true)}
-                        className="h-14 w-full rounded-[10px] bg-white text-[13px] font-gowun-batang font-bold shadow-[2px_2px_2px_rgba(0,0,0,0.09)] active:scale-[0.99]"
+                        className="h-10 w-full rounded-[10px] bg-white text-[11px] font-gowun-batang font-bold shadow-[2px_2px_2px_rgba(0,0,0,0.09)] active:scale-[0.97]"
                     >
                         전체보기
                     </button>
@@ -231,7 +231,7 @@ export default function MessageSection({showToast}: Props) {
                     <button
                         type="button"
                         onClick={() => setGbOpenWrite(true)}
-                        className="h-16 w-full rounded-[10px] bg-[#AC5344] text-[13px] font-gowun-batang font-bold text-white shadow-[2px_2px_2px_rgba(0,0,0,0.09)] active:scale-[0.99]"
+                        className="h-10 w-full rounded-[10px] bg-[#AC5344] text-[11px] font-gowun-batang font-bold text-white shadow-[2px_2px_2px_rgba(0,0,0,0.09)] active:scale-[0.97]"
                     >
                         메세지 남기기
                     </button>
@@ -241,11 +241,11 @@ export default function MessageSection({showToast}: Props) {
             {/* 전체보기 모달 */}
             <Modal open={gbOpenAll}>
                 <div className="flex items-center justify-between border-b border-black/5 px-5 py-4">
-                    <div className="font-gowun-batang text-[15px] font-bold">전체 메시지</div>
+                    <div className="font-gowun-batang text-[13px] font-bold">전체 메시지</div>
                     <button
                         type="button"
                         onClick={() => setGbOpenAll(false)}
-                        className="h-9 w-9 rounded-full text-[#AC5344] text-[30px] active:scale-[0.95]"
+                        className="h-9 w-9 rounded-full text-[#AC5344] text-[20px] active:scale-[0.95]"
                         aria-label="close"
                     >
                         ✕
@@ -262,11 +262,11 @@ export default function MessageSection({showToast}: Props) {
             {/* 작성 모달 */}
             <Modal open={gbOpenWrite}>
                 <div className="flex items-center justify-between border-b border-black/5 px-5 py-4">
-                    <div className="font-gowun-batang text-[15px] font-bold">메시지 남기기</div>
+                    <div className="font-gowun-batang text-[13px] font-bold">메시지 남기기</div>
                     <button
                         type="button"
                         onClick={() => setGbOpenWrite(false)}
-                        className="h-9 w-9 rounded-full text-[#AC5344] text-[25px] active:scale-[0.95]"
+                        className="h-9 w-9 rounded-full text-[#AC5344] text-[20px] active:scale-[0.95]"
                         aria-label="close"
                     >
                         ✕
@@ -279,7 +279,7 @@ export default function MessageSection({showToast}: Props) {
                             value={gbName}
                             onChange={(e) => setGbName(e.target.value)}
                             placeholder="이름"
-                            className="h-12 w-full rounded-[10px] bg-[#F7F7F7] px-4 font-gowun-batang text-[16px] outline-none"
+                            className="h-10 w-full rounded-[10px] bg-[#F7F7F7] px-4 font-gowun-batang text-[16px] outline-none"
                             maxLength={50}
                         />
 
@@ -287,11 +287,11 @@ export default function MessageSection({showToast}: Props) {
                             value={gbMessage}
                             onChange={(e) => setGbMessage(e.target.value)}
                             placeholder="축하 메시지를 남겨주세요 :)"
-                            className="min-h-35 w-full rounded-md bg-[#F7F7F7] px-4 py-3 font-gowun-batang text-[16px] leading-relaxed whitespace-pre-wrap outline-none"
+                            className="min-h-35 w-full rounded-md bg-[#F7F7F7] px-4 py-2 font-gowun-batang text-[16px] leading-relaxed whitespace-pre-wrap outline-none"
                             maxLength={MAX_MSG_LEN}
                         />
 
-                        <div className="text-right font-noto-sans-kr text-[12px] text-[#ADA9A9]">
+                        <div className="text-right font-noto-sans-kr text-[10px] text-[#ADA9A9]">
                             {gbMessage.length}/{MAX_MSG_LEN}
                         </div>
 
@@ -300,7 +300,7 @@ export default function MessageSection({showToast}: Props) {
                             onClick={submitGuestbook}
                             disabled={gbSubmitting}
                             className={[
-                                "h-14 w-full rounded-[10px] font-gowun-batang text-[13px] font-bold",
+                                "h-10 w-full rounded-[10px] font-gowun-batang text-[11px] font-bold",
                                 "shadow-[0_10px_24px_rgba(0,0,0,0.18)] active:scale-[0.99]",
                                 gbSubmitting
                                     ? "cursor-not-allowed bg-black/20 text-white"

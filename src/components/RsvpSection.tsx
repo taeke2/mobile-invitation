@@ -180,43 +180,43 @@ export default function RsvpSection({ showToast }: Props) {
     };
 
     return (
-        <section className="px-6 py-18 text-center text-black bg-white">
+        <section className="px-6 py-20 text-center text-black bg-white">
             {/* 타이틀 SVG */}
             <div className="mx-auto w-40 max-w-[70vw]">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src="/svgs/rsvp.svg" alt="RSVP" className="w-full h-auto" />
             </div>
 
-            <div className="mt-10 font-noto-sans-kr text-[15px] font-semibold">참석 의사</div>
+            <div className="mt-7 font-noto-sans-kr text-[13px] font-semibold">참석 의사</div>
 
-            <div className="mt-3 font-gowun-batang text-[12px] text-[#ADA9A9] font-bold">
+            <div className="mt-5 font-gowun-batang text-[10px] text-[#ADA9A9] font-bold">
                 모든 분들을 소중히 모실 수 있도록<br />
                 참석여부를 전해주세요
             </div>
 
             {/* 메인 카드 */}
-            <div className="mt-10">
+            <div className="mt-5">
                 <div className="mx-auto w-full max-w-md rounded-2xl bg-[#AC5344] text-white shadow-[0_10px_28px_rgba(0,0,0,0.12)] overflow-hidden">
                     <div className="px-6 pt-10 pb-8">
                         {/* 신랑/신부 + 하트 */}
-                        <div className="flex items-center justify-center gap-4 font-gowun-batang text-[16px]">
+                        <div className="flex items-center justify-center gap-4 font-gowun-batang text-[11px]">
                             <p><span className="font-bold">신랑</span> 허성택</p>
                             {/* eslint-disable-next-line @next/next/no-img-element */}
-                            <img src="/svgs/heart.svg" alt="heart" className="h-4 w-4" />
+                            <img src="/svgs/heart.svg" alt="heart" className="h-3 w-3" />
                             <p><span className="font-bold">신부</span> 이현정</p>
                         </div>
 
-                        <div className="mt-10 space-y-2 font-gowun-batang text-[15px] font-bold">
+                        <div className="mt-7 font-gowun-batang text-[11px] font-bold">
                             <div>2026년 5월 9일</div>
                             <div>토요일 오후6시30분</div>
                         </div>
 
-                        <div className="mt-8 font-gowun-batang text-[15px] font-bold">빌라드지디 논현</div>
+                        <div className="mt-3 font-gowun-batang text-[11px] font-bold">빌라드지디 논현</div>
 
                         <button
                             type="button"
                             onClick={() => setOpen(true)}
-                            className="mt-10 w-full h-14 rounded-md bg-white text-black font-gowun-batang font-bold text-[16px]
+                            className="mt-7 w-full h-10 rounded-md bg-white text-black font-gowun-batang font-bold text-[12px]
                          shadow-[0_10px_24px_rgba(0,0,0,0.18)] active:scale-[0.99]"
                         >
                             참석 의사 체크하기
@@ -226,7 +226,7 @@ export default function RsvpSection({ showToast }: Props) {
             </div>
 
             {/* 하단 문구 */}
-            <div className="mt-16 font-gowun-batang text-[13px] leading-relaxed text-black font-bold">
+            <div className="mt-10 font-gowun-batang text-[10px] leading-relaxed text-black font-bold">
                 흐뭇하실 수 있도록 잘 살겠습니다.<br />
                 꼭 오셔서 축복해 주세요.<br /><br />
                 신랑 허성택 · 신부 이현정 드림

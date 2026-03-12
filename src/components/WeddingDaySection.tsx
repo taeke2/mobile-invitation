@@ -25,7 +25,7 @@ export default function WeddingDaySection() {
 
     return (
         <section
-            className="relative px-10 py-15 text-center text-black bg-[url('/images/paper_bg.jpg')] bg-cover bg-center">
+            className="relative px-7 py-15 text-center text-black bg-[url('/images/paper_bg.jpg')] bg-cover bg-center">
             {/* 타이틀 SVG */}
             <FadeInOnView>
                 <div className="mx-auto w-55 max-w-[70vw]">
@@ -38,19 +38,19 @@ export default function WeddingDaySection() {
             {/* 날짜 텍스트 */}
             <FadeInOnView>
                 <div className="mt-7">
-                    <div className="text-[15px] font-noto-sans-kr font-semibold">
+                    <div className="text-[13px] font-noto-sans-kr font-semibold">
                         2026년 5월 9일 토요일 | 오후 6시 30분
                     </div>
-                    <div className="mt-2 text-[12px] text-[#ADA9A9] font-gowun-batang font-bold">
-                        Saturday, May 9, 2026 | PM 6:30
+                    <div className="mt-2 text-[11px] text-[#ADA9A9] font-gowun-batang font-bold">
+                        Saturday, May 9, 2026. PM 6:30
                     </div>
                 </div>
             </FadeInOnView>
 
             {/* 구분선 */}
-            <FadeInOnView>
+            {/*<FadeInOnView>
                 <div className="mx-auto mt-7 h-px w-full max-w-md bg-[#ADA9A9]/60"/>
-            </FadeInOnView>
+            </FadeInOnView>*/}
 
             {/* 달력 */}
             {(() => {
@@ -70,13 +70,16 @@ export default function WeddingDaySection() {
 
                 return (
                     <FadeInOnView>
-                        <div className="my-4 mx-auto w-full max-w-md">
+                        <div className="mt-10 mx-auto w-full max-w-md rounded-[10px] bg-white shadow-[0_0_1px_0px_rgba(255,255,255,0.1)]">
+
+                            {/*<p className="my-3 font-bold font-gowun-batang">May. 2026</p>*/}
+
                             {/* 요일 */}
-                            <div className="grid grid-cols-7 text-[13px] font-noto-sans-kr font-semibold">
+                            <div className="grid grid-cols-7 text-[11px] font-gowun-batang font-bold">
                                 {weekLabels.map((w, idx) => (
                                     <div
                                         key={w}
-                                        className={`py-4 ${idx === 0 ? "text-[#c44]" : "text-black"}`}
+                                        className={`py-4 ${idx === 0 ? "text-[#D67171]" : "text-black"}`}
                                     >
                                         {w}
                                     </div>
@@ -84,7 +87,7 @@ export default function WeddingDaySection() {
                             </div>
 
                             {/* 날짜 */}
-                            <div className="grid grid-cols-7 gap-y-1 text-[13px] font-noto-sans-kr font-light">
+                            <div className="grid grid-cols-7 gap-y-1.5 text-[11px] font-noto-sans-kr font-light">
                                 {cells.map((d, i) => {
                                     const col = i % 7; // 0=Sun
                                     const isSunday = col === 0;
@@ -96,9 +99,9 @@ export default function WeddingDaySection() {
                                         <div key={`d-${i}`} className="flex justify-center">
                                             <div
                                                 className={[
-                                                    "h-8 w-8 flex items-center justify-center rounded-full",
+                                                    "h-7 w-7 flex items-center justify-center rounded-full",
                                                     isHighlight
-                                                        ? "bg-[#A80000] text-white font-noto-sans-kr font-bold"
+                                                        ? "bg-[#A80000] text-white font-noto-sans-kr font-semibold"
                                                         : isSunday
                                                             ? "text-[#D67171]"
                                                             : "text-black",
@@ -116,25 +119,24 @@ export default function WeddingDaySection() {
             })()}
 
             {/* 하단 구분선 */}
-            <FadeInOnView>
+{/*            <FadeInOnView>
                 <div className="mx-auto h-px w-full max-w-md bg-[#ADA9A9]/60"/>
-            </FadeInOnView>
+            </FadeInOnView>*/}
 
             {/* D-day */}
             <FadeInOnView>
-                <div className="mt-10 text-[16px] font-gowun-batang font-bold">
-                    성택 · 현정 결혼식이{" "}
+                <div className="mt-10 text-[14px] font-gowun-batang font-bold">
+                    성택 · 현정 결혼식{" "} <span className="text-[#A80000]">D-</span>
                     <CountUpNumber
                         to={diffDays ?? 0}
                         from={0}
-                        durationMs={1200}
+                        durationMs={3000}
                         padStart={2}
                         startOnView
                         threshold={0.3}
                         once
                         className="text-[#A80000] font-black"
                     />
-                    일 남았습니다
                 </div>
             </FadeInOnView>
         </section>

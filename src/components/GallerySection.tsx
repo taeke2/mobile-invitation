@@ -109,7 +109,7 @@ export default function GallerySection({ images, className }: Props) {
     const goNext = () => scrollToIndex(Math.min(finalImages.length - 1, activeIndex + 1));
 
     return (
-        <section className={["px-6 py-12 text-center text-black bg-white", className].join(" ")}>
+        <section className={["px-6 py-20 text-center text-black bg-white", className].join(" ")}>
             {/* 타이틀 SVG */}
             <FadeInOnView>
                 <div className="mx-auto w-40 max-w-[70vw]">
@@ -120,27 +120,27 @@ export default function GallerySection({ images, className }: Props) {
 
             {/* 안내 문구 */}
             <FadeInOnView>
-                <div className="mt-6">
-                    <p className="text-[15px] font-noto-sans-kr font-semibold">
+                <div className="mt-7">
+                    <p className="text-[13px] font-noto-sans-kr font-semibold">
                         사진을 클릭하시면 전체화면 보기가 가능합니다
                     </p>
-                    <p className="mt-2 text-[13px] text-[#ADA9A9] font-gowun-batang font-bold">
+                    <p className="mt-2 text-[11px] text-[#ADA9A9] font-gowun-batang font-bold">
                         Tap to view full screen
                     </p>
                 </div>
             </FadeInOnView>
 
             {/* 썸네일 그리드 */}
-            <div className="mt-10 space-y-3">
+            <div className="mt-10 space-y-2">
                 {/* 1행 - 2:1 */}
                 <FadeInOnView>
-                    <div className="grid grid-cols-[2fr_1fr] gap-3">
+                    <div className="grid grid-cols-[2fr_1fr] gap-2">
                         {[0, 1].map((i) => (
                             <button
                                 key={i}
                                 type="button"
                                 onClick={() => openFirst(i)}
-                                className="relative overflow-hidden bg-[#f3f3f3] h-30"
+                                className="relative overflow-hidden bg-[#f3f3f3] h-20"
                             >
                                 <Image
                                     src={thumbs[i]}
@@ -163,13 +163,13 @@ export default function GallerySection({ images, className }: Props) {
 
                 {/* 2행 - 2:1 */}
                 <FadeInOnView>
-                    <div className="grid grid-cols-[2fr_1fr] gap-3">
+                    <div className="grid grid-cols-[2fr_1fr] gap-2">
                         {[2, 3].map((i) => (
                             <button
                                 key={i}
                                 type="button"
                                 onClick={() => openFirst(i)}
-                                className="relative overflow-hidden bg-[#f3f3f3] h-30"
+                                className="relative overflow-hidden bg-[#f3f3f3] h-20"
                             >
                                 <Image
                                     src={thumbs[i]}
@@ -192,13 +192,13 @@ export default function GallerySection({ images, className }: Props) {
 
                 {/* 3행 - 1:2 */}
                 <FadeInOnView>
-                    <div className="grid grid-cols-[1fr_2fr] gap-3">
+                    <div className="grid grid-cols-[1fr_2fr] gap-2">
                         {[4, 5].map((i) => (
                             <button
                                 key={i}
                                 type="button"
                                 onClick={() => openFirst(i)}
-                                className="relative overflow-hidden bg-[#f3f3f3] h-30"
+                                className="relative overflow-hidden bg-[#f3f3f3] h-20"
                             >
                                 <Image
                                     src={thumbs[i]}
@@ -219,6 +219,14 @@ export default function GallerySection({ images, className }: Props) {
                     </div>
                 </FadeInOnView>
             </div>
+
+            <FadeInOnView>
+                <p className="mt-10 font-gowun-batang text-[8px] text-[#6A6A6A] leading-3.5">
+                    “ It was a million tiny little things that,<br />
+                    when you added them all up,<br />
+                    they meant we were supposed to be together. ”
+                </p>
+            </FadeInOnView>
 
             {/* 모달 */}
             {open && (

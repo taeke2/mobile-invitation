@@ -20,25 +20,25 @@ const AccountCard = ({
     copyText: CopyTextFn;
 }) => {
     return (
-        <div className="mt-4 overflow-hidden rounded-md bg-white shadow-[0_6px_18px_rgba(0,0,0,0.08)]">
-            <div className="px-6 pt-6 pb-5">
+        <div className="mt-3 overflow-hidden rounded-md bg-white shadow-[2px_2px_2px_rgba(0,0,0,0.09)]">
+            <div className="px-6 pt-4 pb-5">
                 <div className="flex items-center justify-between px-3">
-                    <div className="font-gowun-batang text-[13px] font-black text-black">
+                    <div className="font-gowun-batang text-[11px] font-black text-black">
                         {item.role}
                     </div>
-                    <div className="font-gowun-batang text-[13px] text-black">
+                    <div className="font-gowun-batang text-[11px] text-black">
                         {item.name}
                     </div>
                 </div>
 
                 <div className="mt-4">
-                    <div className="flex flex-col rounded-md bg-[#AC5344] px-4 py-3 text-white">
-                        <div className="self-start text-left font-gowun-batang text-[13px]">
+                    <div className="flex flex-col rounded-md bg-[#AC5344] px-4 py-2.5 text-white">
+                        <div className="self-start text-left font-gowun-batang text-[11px]">
                             {item.bank}
                         </div>
 
                         <div className="mt-2 flex items-center justify-between gap-2">
-                            <div className="font-gowun-batang text-[13px] tracking-wide">
+                            <div className="font-gowun-batang text-[11px] tracking-wide">
                                 {item.account}
                             </div>
 
@@ -71,14 +71,14 @@ const Accordion = ({
     children: React.ReactNode;
 }) => {
     return (
-        <div className="mt-6">
+        <div className="mt-5">
             <button
                 type="button"
                 onClick={onToggle}
-                className="h-12 w-full rounded-md bg-[#EDEDED]/20 px-6 shadow-[2px_2px_2px_rgba(0,0,0,0.09)] active:scale-[0.99]"
+                className="h-10 w-full rounded-md bg-white px-6 shadow-[2px_2px_2px_rgba(0,0,0,0.09)] active:scale-[0.99]"
             >
                 <div className="flex items-center justify-between">
-                    <span className="font-gowun-batang text-[13px] font-bold text-black">
+                    <span className="font-gowun-batang text-[11px] font-bold text-black">
                         {title}
                     </span>
 
@@ -106,7 +106,7 @@ const Accordion = ({
             <div
                 className={[
                     "grid overflow-hidden transition-all duration-700 ease-in-out",
-                    isOpen ? "mt-4 grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0",
+                    isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0",
                 ].join(" ")}
             >
                 <div className="min-h-0">
@@ -138,7 +138,7 @@ export default function WithLoveSection({
     ];
 
     return (
-        <section className="bg-[url('/images/paper_bg.jpg')] bg-cover bg-center px-6 py-16 text-center text-black">
+        <section className="bg-[url('/images/paper_bg.jpg')] bg-cover bg-center px-6 py-20 text-center text-black">
             <div className="pt-2">
                 <FadeInOnView>
                     <div className="mx-auto w-40 max-w-[70vw]">
@@ -148,11 +148,11 @@ export default function WithLoveSection({
                 </FadeInOnView>
 
                 <FadeInOnView>
-                    <div className="mt-10 font-gowun-batang text-[16px] font-bold">
+                    <div className="mt-7 font-gowun-batang text-[14px] font-bold">
                         마음 전하실 곳
                     </div>
 
-                    <div className="mt-6 font-gowun-batang text-[13px] leading-relaxed text-black">
+                    <div className="mt-7 font-gowun-batang text-[11px] leading-5 text-black">
                         함께 자리하지 못하시더라도
                         <br/>
                         축하의 마음을 전해주실 분들을 위해

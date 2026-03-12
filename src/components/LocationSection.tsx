@@ -86,7 +86,7 @@ const MapModal = ({
                             </div>
                         </div>
 
-                        <div className="mt-10 text-center font-noto-sans-kr text-[15px] font-semibold text-black">
+                        <div className="mt-7 text-center font-noto-sans-kr text-[15px] font-semibold text-black">
                             빌라드지디 논현
                         </div>
 
@@ -113,10 +113,10 @@ export default function LocationSection({ copyText }: Props) {
                 </FadeInOnView>
 
                 <FadeInOnView>
-                    <div className="mt-10">
-                        <div className="text-[15px] font-noto-sans-kr font-semibold">빌라드지디 논현</div>
+                    <div className="mt-7">
+                        <div className="text-[13px] font-noto-sans-kr font-semibold">빌라드지디 논현</div>
 
-                        <div className="mt-5 flex items-center justify-center text-[12px] text-black font-gowun-batang font-normal">
+                        <div className="mt-7 flex items-center justify-center text-[11px] text-black font-gowun-batang font-normal">
                             <p>
                                 하우스웨딩으로 진행되어 주차가 어려운 점 양해 부탁드립니다.
                                 <br />
@@ -145,20 +145,20 @@ export default function LocationSection({ copyText }: Props) {
                     </button>
                 </FadeInOnView>
 
-                <div className="px-4 mt-8 text-left">
+                <div className="px-6 mt-8 text-left">
                     {/* S - 지하철 */}
                     <FadeInOnView>
                         <div className="flex gap-2">
-                            <div className="h-5 w-5 shrink-0 flex items-center justify-center">
+                            <div className="h-4 w-4 shrink-0 flex mt-0.5 items-center justify-center">
                                 <img
                                     src="/svgs/bus.svg"
-                                    alt="bus"
-                                    className="h-[20px] w-[20px]"
+                                    alt="subway"
+                                    className="h-[16px] w-[16px]"
                                 />
                             </div>
                             <div className="flex-1">
-                                <div className="font-noto-sans-kr text-[14px] font-semibold">지하철 이용 시</div>
-                                <div className="mt-3 space-y-2 text-[13px] font-noto-sans-kr">
+                                <div className="font-noto-sans-kr text-[13px] font-semibold">지하철 이용 시</div>
+                                <div className="mt-3 space-y-2 text-[12px] font-noto-sans-kr">
                                     <p className="font-semibold">7호선, 분당선 강남구청역 2번출구</p>
                                 </div>
                                 <div className="mt-1 space-y-1 text-[11px] text-[#6B6B6B] font-noto-sans-kr leading-relaxed">
@@ -171,20 +171,20 @@ export default function LocationSection({ copyText }: Props) {
                     {/* B - 버스 */}
                     <FadeInOnView>
                         <div className="mt-6 flex gap-2">
-                            <div className="h-5 w-5 shrink-0 flex items-center justify-center">
+                            <div className="h-4 w-4 shrink-0 flex mt-0.5 items-center justify-center">
                                 <img
                                     src="/svgs/subway.svg"
-                                    alt="subway"
-                                    className="h-[20px] w-[20px]"
+                                    alt="bus"
+                                    className="h-[16px] w-[16px]"
                                 />
                             </div>
                             <div className="flex-1">
-                                <div className="font-noto-sans-kr text-[14px] font-semibold">버스 이용 시</div>
-                                <div className="mt-3 space-y-1 text-[13px] font-noto-sans-kr">
+                                <div className="font-noto-sans-kr text-[13px] font-semibold">버스 이용 시</div>
+                                <div className="mt-3 space-y-0.5 text-[12px] font-noto-sans-kr">
                                     <p className="font-semibold">242, 401, 3414, 301번 강남구청역 하차</p>
                                     <p className="font-semibold">342, 472, 3426, 4312번 강남보건소 하차</p>
                                 </div>
-                                <div className="mt-3 space-y-1 text-[11px] text-[#6B6B6B] font-noto-sans-kr leading-relaxed">
+                                <div className="mt-1 space-y-1 text-[11px] text-[#6B6B6B] font-noto-sans-kr leading-relaxed">
                                     <p>*7호선, 분당선 강남구청역 2번출구에서 셔틀버스 이용</p>
                                 </div>
                             </div>
@@ -194,21 +194,21 @@ export default function LocationSection({ copyText }: Props) {
                     {/* P - 자가용 */}
                     <FadeInOnView>
                         <div className="mt-6 flex gap-2">
-                            <div className="h-5 w-5 shrink-0 flex items-center justify-center">
+                            <div className="h-4 w-4 shrink-0 flex mt-0.5 items-center justify-center">
                                 <img
                                     src="/svgs/car.svg"
                                     alt="car"
-                                    className="h-[20px] w-[20px]"
+                                    className="h-[16px] w-[16px]"
                                 />
                             </div>
                             <div className="flex-1">
-                                <div className="font-noto-sans-kr text-[14px] font-semibold">자가용 이용 시</div>
+                                <div className="font-noto-sans-kr text-[13px] font-semibold">자가용 이용 시</div>
 
-                                <div className="mt-3 space-y-2 text-[13px] font-noto-sans-kr">
+                                <div className="mt-3 space-y-0.5 text-[12px] font-noto-sans-kr">
                                     <div className="flex items-center gap-2">
                                         <p className="font-semibold">
                                             제1주차장 :
-                                            <span className="font-normal text-[13px]"> 서울 강남구 언주로126길 23 (논현동)</span>
+                                            <span className="font-normal text-[12px]"> 서울 강남구 언주로126길 23 (논현동)</span>
                                         </p>
 
                                         <button
@@ -217,14 +217,14 @@ export default function LocationSection({ copyText }: Props) {
                                             className="shrink-0 active:scale-[0.9]"
                                             aria-label="제1주차장 주소 복사"
                                         >
-                                            <img src="/svgs/copy.svg" alt="copy" className="h-4 w-4" />
+                                            <img src="/svgs/copy.svg" alt="copy" className="h-3 w-3" />
                                         </button>
                                     </div>
 
                                     <div className="flex items-center gap-2">
                                         <p className="font-semibold">
                                             제2주차장 :
-                                            <span className="font-normal text-[13px]"> 서울 강남구 학동로 342 에스케이 허브블루</span>
+                                            <span className="font-normal text-[12px]"> 서울 강남구 학동로 342 에스케이 허브블루</span>
                                         </p>
 
                                         <button
@@ -233,12 +233,12 @@ export default function LocationSection({ copyText }: Props) {
                                             className="shrink-0 active:scale-[0.9]"
                                             aria-label="제2주차장 주소 복사"
                                         >
-                                            <img src="/svgs/copy.svg" alt="copy" className="h-4 w-4" />
+                                            <img src="/svgs/copy.svg" alt="copy" className="h-3 w-3" />
                                         </button>
                                     </div>
                                 </div>
 
-                                <div className="mt-3 space-y-1 text-[11px] text-[#6B6B6B] font-noto-sans-kr leading-relaxed">
+                                <div className="mt-1 space-y-0.5 text-[11px] text-[#6B6B6B] font-noto-sans-kr leading-relaxed">
                                     <p>*제1주차장은 발렛주차로 만차시 제2주차장으로 안내해드립니다.</p>
                                     <p>*제2주차장은 도보 10분 / 셔틀이용 가능합니다.</p>
                                 </div>
@@ -249,20 +249,20 @@ export default function LocationSection({ copyText }: Props) {
                     {/* 셔틀버스 */}
                     <FadeInOnView>
                         <div className="mt-6 flex gap-2">
-                            <div className="h-5 w-5 shrink-0 flex items-center justify-center">
+                            <div className="h-4 w-4 shrink-0 flex mt-0.5 items-center justify-center">
                                 <img
                                     src="/svgs/shuttle.svg"
                                     alt="shuttle"
-                                    className="h-[20px] w-[20px]"
+                                    className="h-[16px] w-[16px]"
                                 />
                             </div>
                             <div className="flex-1">
-                                <div className="font-noto-sans-kr text-[14px] font-semibold">셔틀버스 운행 시간</div>
-                                <div className="mt-3 space-y-1 text-[13px] font-noto-sans-kr">
+                                <div className="font-noto-sans-kr text-[13px] font-semibold">셔틀버스 운행 시간</div>
+                                <div className="mt-3 space-y-0.5 text-[12px] font-noto-sans-kr">
                                     <p className="font-semibold">17:30 - 19:00 (90분간)</p>
                                     <p className="font-semibold">19:30 - 20:30 (60분간)</p>
                                 </div>
-                                <div className="mt-3 space-y-1 text-[11px] text-[#6B6B6B] font-noto-sans-kr leading-relaxed">
+                                <div className="mt-1 space-y-1 text-[11px] text-[#6B6B6B] font-noto-sans-kr leading-relaxed">
                                     <p>*10분 간격으로 운행</p>
                                 </div>
                             </div>
@@ -271,13 +271,13 @@ export default function LocationSection({ copyText }: Props) {
                 </div>
 
                 <FadeInOnView>
-                    <div className="px-6 mt-8">
+                    <div className="px-6 mt-6">
                         <a
                             href="https://www.naver.com"
                             target="_blank"
                             rel="noreferrer"
-                            className="flex h-13 w-full items-center justify-center rounded-md
-                        bg-[#AC5344] text-white font-gowun-batang text-[16px] font-bold
+                            className="flex h-10 w-full items-center justify-center rounded-md
+                        bg-[#AC5344] text-white font-gowun-batang text-[13px] font-bold
                         shadow-[0_8px_18px_rgba(0,0,0,0.14)] active:scale-[0.99]"
                         >
                             주차 안내
