@@ -273,7 +273,7 @@ export default function LocationSection({ copyText }: Props) {
                 <FadeInOnView>
                     <div className="px-6 mt-6">
                         <a
-                            href="https://www.naver.com"
+                            href="https://nonhyeonvilladegd.com/86"
                             target="_blank"
                             rel="noreferrer"
                             className="flex h-10 w-full items-center justify-center rounded-md

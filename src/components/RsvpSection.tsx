@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { supabase } from "@/src/lib/supabaseClient";
+import FadeInOnView from "@/src/components/FadeInOnView";
 
 type Props = {
     showToast: (msg: string) => void;
@@ -101,10 +102,10 @@ const SelectButton = ({
             type="button"
             onClick={onClick}
             className={[
-                "h-12 rounded-[10px] font-gowun-batang text-[16px] font-bold",
-                "bg-[#EDEDED]/30 shadow-[2px_2px_2px_rgba(0,0,0,0.09)]",
+                "h-10 rounded-[10px] font-gowun-batang text-[11px] font-bold",
+                "shadow-[2px_2px_2px_rgba(0,0,0,0.09)]",
                 "active:scale-[0.99] transition-colors",
-                active ? "bg-white text-black" : "text-[#6B6B6B]",
+                active ? "bg-[#AC5344] text-white" : "bg-white text-[#6B6B6B]",
             ].join(" ")}
         >
             {children}
@@ -182,68 +183,78 @@ export default function RsvpSection({ showToast }: Props) {
     return (
         <section className="px-6 py-20 text-center text-black bg-white">
             {/* 타이틀 SVG */}
-            <div className="mx-auto w-40 max-w-[70vw]">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/svgs/rsvp.svg" alt="RSVP" className="w-full h-auto" />
-            </div>
+            <FadeInOnView>
+                <div className="mx-auto w-40 max-w-[70vw]">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src="/svgs/rsvp.svg" alt="RSVP" className="w-full h-auto" />
+                </div>
+            </FadeInOnView>
 
-            <div className="mt-7 font-noto-sans-kr text-[13px] font-semibold">참석 의사</div>
+            <FadeInOnView>
+                <div className="mt-7 font-noto-sans-kr text-[13px] font-semibold">참석 의사</div>
+            </FadeInOnView>
 
-            <div className="mt-5 font-gowun-batang text-[10px] text-[#ADA9A9] font-bold">
-                모든 분들을 소중히 모실 수 있도록<br />
-                참석여부를 전해주세요
-            </div>
+            <FadeInOnView>
+                <div className="mt-5 font-gowun-batang text-[10px] text-[#ADA9A9] font-bold">
+                    모든 분들을 소중히 모실 수 있도록<br />
+                    참석여부를 전해주세요
+                </div>
+            </FadeInOnView>
 
             {/* 메인 카드 */}
-            <div className="mt-5">
-                <div className="mx-auto w-full max-w-md rounded-2xl bg-[#AC5344] text-white shadow-[0_10px_28px_rgba(0,0,0,0.12)] overflow-hidden">
-                    <div className="px-6 pt-10 pb-8">
-                        {/* 신랑/신부 + 하트 */}
-                        <div className="flex items-center justify-center gap-4 font-gowun-batang text-[11px]">
-                            <p><span className="font-bold">신랑</span> 허성택</p>
-                            {/* eslint-disable-next-line @next/next/no-img-element */}
-                            <img src="/svgs/heart.svg" alt="heart" className="h-3 w-3" />
-                            <p><span className="font-bold">신부</span> 이현정</p>
-                        </div>
+            <FadeInOnView>
+                <div className="mt-5">
+                    <div className="mx-auto w-full max-w-md rounded-2xl bg-[#AC5344] text-white shadow-[0_10px_28px_rgba(0,0,0,0.12)] overflow-hidden">
+                        <div className="px-6 pt-10 pb-8">
+                            {/* 신랑/신부 + 하트 */}
+                            <div className="flex items-center justify-center gap-4 font-gowun-batang text-[11px]">
+                                <p><span className="font-bold">신랑</span> 허성택</p>
+                                {/* eslint-disable-next-line @next/next/no-img-element */}
+                                <img src="/svgs/heart.svg" alt="heart" className="h-3 w-3" />
+                                <p><span className="font-bold">신부</span> 이현정</p>
+                            </div>
 
-                        <div className="mt-7 font-gowun-batang text-[11px] font-bold">
-                            <div>2026년 5월 9일</div>
-                            <div>토요일 오후6시30분</div>
-                        </div>
+                            <div className="mt-7 font-gowun-batang text-[11px] font-bold">
+                                <div>2026년 5월 9일</div>
+                                <div>토요일 오후6시30분</div>
+                            </div>
 
-                        <div className="mt-3 font-gowun-batang text-[11px] font-bold">빌라드지디 논현</div>
+                            <div className="mt-3 font-gowun-batang text-[11px] font-bold">빌라드지디 논현</div>
 
-                        <button
-                            type="button"
-                            onClick={() => setOpen(true)}
-                            className="mt-7 w-full h-10 rounded-md bg-white text-black font-gowun-batang font-bold text-[12px]
+                            <button
+                                type="button"
+                                onClick={() => setOpen(true)}
+                                className="mt-7 w-full h-10 rounded-md bg-white text-black font-gowun-batang font-bold text-[12px]
                          shadow-[0_10px_24px_rgba(0,0,0,0.18)] active:scale-[0.99]"
-                        >
-                            참석 의사 체크하기
-                        </button>
+                            >
+                                참석 의사 체크하기
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </FadeInOnView>
 
             {/* 하단 문구 */}
-            <div className="mt-10 font-gowun-batang text-[10px] leading-relaxed text-black font-bold">
-                흐뭇하실 수 있도록 잘 살겠습니다.<br />
-                꼭 오셔서 축복해 주세요.<br /><br />
-                신랑 허성택 · 신부 이현정 드림
-            </div>
+            <FadeInOnView>
+                <div className="mt-10 font-gowun-batang text-[10px] leading-relaxed text-black font-bold">
+                    흐뭇하실 수 있도록 잘 살겠습니다.<br />
+                    꼭 오셔서 축복해 주세요.<br /><br />
+                    신랑 허성택 · 신부 이현정 드림
+                </div>
+            </FadeInOnView>
 
             {/* RSVP 모달 */}
             <Modal open={open} onClose={() => setOpen(false)}>
                 {/* 헤더 (고정) */}
                 <div className="relative px-5 pt-8 pb-6 shrink-0">
-                    <div className="text-center font-gowun-batang font-bold text-[18px] text-black">
+                    <div className="text-center font-gowun-batang font-bold text-[14px] text-black">
                         참석 여부 전달
                     </div>
 
                     <button
                         type="button"
                         onClick={() => setOpen(false)}
-                        className="absolute right-5 top-5 text-[#8B2E2E] text-[26px] leading-none active:scale-[0.95]"
+                        className="absolute right-6 top-6 w-9 h-9 text-[#9D3333] text-[20px] leading-none active:scale-[0.95]"
                         aria-label="close"
                     >
                         ×
@@ -252,7 +263,7 @@ export default function RsvpSection({ showToast }: Props) {
 
                 <div className="px-5 pb-6 overflow-y-auto">
                     {/* 질문 */}
-                    <div className="mt-2 text-center font-gowun-batang text-[16px] font-bold text-[#6B6B6B]">
+                    <div className="mt-2 text-center font-gowun-batang text-[11px] font-bold text-black">
                         어느 측 하객이신가요?
                     </div>
 
@@ -267,7 +278,7 @@ export default function RsvpSection({ showToast }: Props) {
                     </div>
 
                     {/* 참석 여부 */}
-                    <div className="mt-8 text-center font-gowun-batang text-[16px] font-bold text-[#6B6B6B]">
+                    <div className="mt-8 text-center font-gowun-batang text-[11px] font-bold text-[#6B6B6B]">
                         참석 여부
                     </div>
                     <div className="mt-4 grid grid-cols-2 gap-3">
@@ -280,7 +291,7 @@ export default function RsvpSection({ showToast }: Props) {
                     </div>
 
                     {/* 식사 여부 */}
-                    <div className="mt-8 text-center font-gowun-batang text-[16px] font-bold text-[#6B6B6B]">
+                    <div className="mt-8 text-center font-gowun-batang text-[11px] font-bold text-[#6B6B6B]">
                         식사 여부
                     </div>
                     <div className="mt-4 grid grid-cols-3 gap-3">
@@ -297,31 +308,31 @@ export default function RsvpSection({ showToast }: Props) {
 
                     {/* 입력 */}
                     <div className="mt-8 space-y-3">
-                        <div className="text-center font-gowun-batang text-[16px] font-bold text-[#6B6B6B]">
+                        <div className="text-center font-gowun-batang text-[11px] font-bold text-[#6B6B6B]">
                             성함
                         </div>
                         <input
                             value={name}
                             onChange={(e) => setName(e.target.value)}
                             placeholder="성함을 작성해주세요"
-                            className="w-full h-12 rounded-[10px] bg-[#EDEDED]/30 px-4 font-gowun-batang text-[16px] outline-none
+                            className="w-full h-10 rounded-[10px] bg-[#EDEDED]/30 px-4 font-gowun-batang text-[16px] outline-none
                          shadow-[2px_2px_2px_rgba(0,0,0,0.09)]"
                             maxLength={50}
                         />
 
-                        <div className="mt-4 text-center font-gowun-batang text-[16px] font-bold text-[#6B6B6B]">
+                        <div className="mt-4 text-center font-gowun-batang text-[11px] font-bold text-[#6B6B6B]">
                             동행인 성함
                         </div>
                         <input
                             value={companionName}
                             onChange={(e) => setCompanionName(e.target.value)}
                             placeholder="동행인 성함을 작성해주세요"
-                            className="w-full h-12 rounded-[10px] bg-[#EDEDED]/30 px-4 font-gowun-batang text-[16px] outline-none
+                            className="w-full h-10 rounded-[10px] bg-[#EDEDED]/30 px-4 font-gowun-batang text-[16px] outline-none
                          shadow-[2px_2px_2px_rgba(0,0,0,0.09)]"
                             maxLength={80}
                         />
 
-                        <div className="mt-4 text-center font-gowun-batang text-[16px] font-bold text-[#6B6B6B]">
+                        <div className="mt-4 text-center font-gowun-batang text-[11px] font-bold text-[#6B6B6B]">
                             전달사항
                         </div>
                         <textarea
@@ -340,7 +351,7 @@ export default function RsvpSection({ showToast }: Props) {
                         onClick={submit}
                         disabled={submitting}
                         className={[
-                            "mt-6 w-full h-14 rounded-[10px] font-gowun-batang font-bold text-[16px]",
+                            "mt-6 w-full h-10 rounded-[10px] font-gowun-batang font-bold text-[11px]",
                             "shadow-[0_10px_24px_rgba(0,0,0,0.18)] active:scale-[0.99]",
                             submitting ? "bg-black/20 text-white cursor-not-allowed" : "bg-[#AC5344] text-white",
                         ].join(" ")}
