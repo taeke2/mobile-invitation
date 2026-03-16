@@ -16,7 +16,7 @@ const BLUR_1x1 =
 export default function GallerySection({ images, className }: Props) {
     // ✅ section4에서 쓰던 이미지 배열 생성까지 여기로 이동
     const defaultImages = useMemo(
-        () => Array.from({ length: 30 }, (_, i) => `/images/gallery/gallery${i + 1}.jpg`),
+        () => Array.from({ length: 30 }, (_, i) => `/images/gallery/gallery${i + 1}.JPG`),
         []
     );
 
