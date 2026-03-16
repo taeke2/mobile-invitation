@@ -1,0 +1,75 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-bodoni-sc: var(--font-bodoni-sc);
+  --font-gowun-batang: var(--font-gowun-batang);
+  --font-noto-sans-kr: var(--font-noto-sans-kr);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+@keyframes accordionDown {
+  from {
+    max-height: 0;
+  }
+  to {
+    max-height: 1000px; /* 충분히 크게 */
+  }
+}
+
+@keyframes accordionFade {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-accordion-down {
+  animation: accordionDown 380ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-accordion-fade {
+  animation: accordionFade 320ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.map-scroll::-webkit-scrollbar {
+  height: 6px;
+}
+
+.map-scroll::-webkit-scrollbar-track {
+  background: #eee;
+  border-radius: 10px;
+}
+
+.map-scroll::-webkit-scrollbar-thumb {
+  background: #B35B49;
+  border-radius: 10px;
+}
+
+.map-scroll {
+  scrollbar-color: #B35B49 #eee;
+  scrollbar-width: thin;
+}
