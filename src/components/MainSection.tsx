@@ -49,20 +49,13 @@ export default function MainSection() {
                     priority={idx === 0}
                     sizes="100vw"
                     className={`
-            object-cover object-center
-            absolute inset-0 p-5
-            transition-opacity duration-2000
-            ${idx === current ? "opacity-100" : "opacity-0"}
-        `}
+                        object-cover object-center
+                        absolute inset-0 p-5
+                        transition-opacity duration-2000
+                        ${idx === current ? "opacity-100" : "opacity-0"}
+                    `}
                 />
             ))}
-
-            {/*/!* 이름 *!/*/}
-            {/*<div className="absolute bottom-7 left-1/2 -translate-x-1/2 text-center z-10">*/}
-            {/*    <p className="font-bodoni-sc text-[12px] text-[#414141]">*/}
-            {/*        TAEK<span className="font-bodoni-sc text-[8px]"> & </span>JUNG*/}
-            {/*    </p>*/}
-            {/*</div>*/}
         </section>
     );
 }
