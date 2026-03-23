@@ -58,7 +58,7 @@ export default function InformationSection() {
             <FadeInOnView>
                 <div className="mt-7">
                     <div
-                        className="mx-auto w-full max-w-md overflow-hidden rounded-2xl bg-white shadow-[0_10px_28px_rgba(0,0,0,0.10)] touch-pan-y"
+                        className="mx-auto w-full max-w-md overflow-hidden rounded-2xl bg-white shadow-[0_10px_28px_rgba(0,0,0,0.10)]"
                         onTouchStart={handleTouchStart}
                         onTouchEnd={handleTouchEnd}
                     >

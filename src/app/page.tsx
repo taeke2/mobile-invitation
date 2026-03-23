@@ -83,7 +83,7 @@ export default function Home() {
 
     return (
         <main className="min-h-screen bg-[#722020] flex justify-center">
-            <div className="w-full max-w-97.5 bg-white relative">
+            <div className="w-full max-w-[430px] bg-white relative mx-auto">
                 {/* section01 - Main */}
                 <MainSection />
 
