@@ -28,7 +28,7 @@ const notoSansKr = Noto_Sans_KR({
 });
 
 export const metadata: Metadata = {
-    metadataBase: new URL("https://mobile-invitation-sigma.vercel.app/"),
+    metadataBase: new URL("https://mobile-invitation-sigma.vercel.app"),
 
     title: "성택🖤현정 결혼합니다",
     description: "5월 9일 (토요일) 오후 6시 30분",
