@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     description: "5월 9일 (토요일) 오후 6시 30분",
 
     openGraph: {
-        title: "성택🖤현정 결혼합니다",
+        title: "성택 ෆ 현정 결혼합니다",
         description: "5월 9일 (토요일) 오후 6시 30분",
         siteName: "성택🖤현정 모바일 청첩장",
         images: [
