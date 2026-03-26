@@ -268,6 +268,29 @@ export default function LocationSection({ copyText }: Props) {
                             </div>
                         </div>
                     </FadeInOnView>
+
+                    {/* 대절버스 */}
+                    <FadeInOnView>
+                        <div className="mt-6 flex gap-2">
+                            <div className="h-4 w-4 shrink-0 flex mt-0.5 items-center justify-center">
+                                <img
+                                    src="/svgs/shuttle.svg"
+                                    alt="shuttle"
+                                    className="h-[16px] w-[16px]"
+                                />
+                            </div>
+                            <div className="flex-1">
+                                <div className="font-noto-sans-kr text-[13px] font-semibold">대절버스 이용 시</div>
+                                <div className="mt-3 space-y-0.5 text-[12px] font-noto-sans-kr">
+                                    <p className="font-semibold">출발지 (13:00) : <span className="font-normal">경산시 원효로 28길 20</span></p>
+                                    <p className="font-semibold">경유지 (13:30) : <span className="font-normal">대구스타디움 제2주차장</span></p>
+                                </div>
+                                <div className="mt-1 space-y-1 text-[11px] text-[#6B6B6B] font-noto-sans-kr leading-relaxed">
+                                    <p>* 휴게소 1번 들릴예정</p>
+                                </div>
+                            </div>
+                        </div>
+                    </FadeInOnView>
                 </div>
 
                 <FadeInOnView>
