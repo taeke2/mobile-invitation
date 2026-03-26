@@ -5,7 +5,7 @@ import FadeInOnView from "@/src/components/FadeInOnView";
 
 export default function InformationSection() {
     const [infoPage, setInfoPage] = useState(0); // 0 or 1
-    const INFO_TOTAL = 2;
+    const INFO_TOTAL = 3;
 
     // 스와이프 추가
     const touchStartX = useRef<number | null>(null);
@@ -65,17 +65,17 @@ export default function InformationSection() {
                         <div className="relative">
                             <div className="overflow-hidden">
                                 <div
-                                    className="flex w-[200%] transition-transform duration-300 ease-out"
-                                    style={{ transform: `translateX(-${infoPage * 50}%)` }}
+                                    className="flex w-[300%] transition-transform duration-300 ease-out"
+                                    style={{ transform: `translateX(-${infoPage * (100 / INFO_TOTAL)}%)` }}
                                 >
                                     {/* page 1 */}
-                                    <div className="w-1/2 shrink-0 px-6 pt-7 h-[330px] flex flex-col">
+                                    <div className="w-1/3 shrink-0 px-6 pt-7 h-[330px] flex flex-col">
                                         <p className="font-noto-sans-kr text-[13px] font-semibold text-black">
                                             [ 단독 건물 좌석 안내 ]
                                         </p>
 
                                         <div className="h-[80px] flex items-center justify-center">
-                                            <p className="font-gowun-batang text-[11.5px] font-bold text-center">
+                                            <p className="font-nanum-myeongjo text-[11.5px] font-bold text-center">
                                                 1부 예식 후 식사는 1층,
                                                 <br />
                                                 예식과 동시에 식사는 2층
@@ -107,13 +107,13 @@ export default function InformationSection() {
                                     </div>
 
                                     {/* page 2 */}
-                                    <div className="w-1/2 shrink-0 px-6 pt-7 h-[330px] flex flex-col">
+                                    <div className="w-1/3 shrink-0 px-6 pt-7 h-[330px] flex flex-col">
                                         <p className="font-noto-sans-kr text-[13px] font-semibold text-black">
                                             [ 2부 예식 안내 ]
                                         </p>
 
                                         <div className="h-[80px] flex items-center justify-center">
-                                            <p className="font-gowun-batang text-[11.5px] font-bold text-center">
+                                            <p className="font-nanum-myeongjo text-[11.5px] font-bold text-center">
                                                 1부 예식 후,<br />
                                                 2부 예식이 이어집니다.
                                             </p>
@@ -138,6 +138,42 @@ export default function InformationSection() {
                                                 <br />
                                                 <br />
                                                 함께한 순간을 오래도록 기억해주시길 바랍니다.
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* page 3 */}
+                                    <div className="w-1/3 shrink-0 px-6 pt-7 h-[330px] flex flex-col">
+                                        <p className="font-noto-sans-kr text-[13px] font-semibold text-black">
+                                            [ 화환 관련 안내 ]
+                                        </p>
+
+                                        <div className="h-[80px] flex items-center justify-center">
+                                            <p className="font-nanum-myeongjo text-[11.5px] font-bold text-center">
+                                                저희 예식은 공간이 협소한 관계로<br />
+                                                예식장 규정에 따라 화환은 정중히 사양하고 있습니다.
+                                            </p>
+                                        </div>
+
+                                        <div className="mx-auto w-full border-t border-dashed border-[#AC5344]" />
+
+                                        <div className="flex-1 flex items-center justify-center">
+                                            <div className="font-gowun-batang text-[11px] text-black text-center">
+                                                보내주시는 마음만으로도
+                                                <br />
+                                                충분히 감사드리며,
+                                                <br />
+                                                <br />
+                                                화환 대신 리본이나
+                                                <br />
+                                                축하 깃발, 작은 화분으로
+                                                <br />
+                                                마음을 전해주시면 감사하겠습니다.
+                                                <br />
+                                                <br />
+                                                소중한 발걸음과 따뜻한 마음,
+                                                <br />
+                                                큰 기쁨으로 간직하겠습니다.
                                             </div>
                                         </div>
                                     </div>

@@ -5,16 +5,16 @@ import FadeInOnView from "@/src/components/FadeInOnView";
 export default function TextSection() {
     return (
         <section className="px-6 py-24 text-center text-black">
-            <div className="mx-auto font-gowun-batang">
+            <div className="mx-auto">
                 {/* 타이틀 */}
                 <FadeInOnView>
-                    <h2 className="font-black text-[16px]">
+                    <h2 className="font-nanum-myeongjo font-bold text-[16px]">
                         저희 결혼합니다
                     </h2>
                 </FadeInOnView>
 
                 {/* 본문(시/문구) */}
-                <div className="mt-10 text-[12px]">
+                <div className="mt-10 text-[12px] font-gowun-batang leading-relaxed">
                     <FadeInOnView>
                         <p>
                             사랑은 소유가 아니라<br/>
@@ -45,7 +45,7 @@ export default function TextSection() {
 
                 {/* 하단 이름 */}
                 <FadeInOnView>
-                    <div className="font-black mt-10 text-[12px]">
+                    <div className="font-nanum-myeongjo font-bold mt-10 text-[12px]">
                         신랑 허성택 · 신부 이현정
                     </div>
                 </FadeInOnView>

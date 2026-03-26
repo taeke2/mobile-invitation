@@ -1,5 +1,5 @@
 import type {Metadata} from "next";
-import {Geist, Geist_Mono, Bodoni_Moda_SC, Gowun_Batang, Noto_Sans_KR} from "next/font/google";
+import {Geist, Geist_Mono, Bodoni_Moda_SC, Gowun_Batang, Noto_Sans_KR, Nanum_Myeongjo} from "next/font/google";
 import "../styles/globals.css";
 
 const geistSans = Geist({
@@ -25,6 +25,12 @@ const gowunBatang = Gowun_Batang({
 
 const notoSansKr = Noto_Sans_KR({
     variable: "--font-noto-sans-kr",
+});
+
+const nanumMyeongjo = Nanum_Myeongjo({
+    subsets: ["latin"],
+    weight: ["400", "700", "800"], // Regular / Bold / ExtraBold
+    variable: "--font-nanum-myeongjo",
 });
 
 export const metadata: Metadata = {
@@ -69,6 +75,7 @@ export default function RootLayout({
           ${bodoniSC.variable}
           ${gowunBatang.variable}
           ${notoSansKr.variable}
+          ${nanumMyeongjo.variable}
           antialiased
         `}
         >

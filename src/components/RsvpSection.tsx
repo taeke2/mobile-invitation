@@ -224,7 +224,7 @@ export default function RsvpSection({ showToast }: Props) {
                             <button
                                 type="button"
                                 onClick={() => setOpen(true)}
-                                className="mt-7 w-full h-10 rounded-md bg-white text-black font-gowun-batang font-bold text-[12px]
+                                className="mt-7 w-full h-10 rounded-md bg-white text-black font-nanum-myeongjo font-bold text-[12px]
                          shadow-[0_10px_24px_rgba(0,0,0,0.18)] active:scale-[0.99]"
                             >
                                 참석 의사 체크하기
