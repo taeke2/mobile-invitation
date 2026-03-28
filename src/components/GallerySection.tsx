@@ -16,22 +16,33 @@ const BLUR_1x1 =
 export default function GallerySection({ images, className }: Props) {
     // ✅ section4에서 쓰던 이미지 배열 생성까지 여기로 이동
     const defaultImages = useMemo(
-        () => Array.from({ length: 30 }, (_, i) => `/images/gallery/gallery${i + 1}.JPG`),
+        () => Array.from({ length: 40 }, (_, i) => `/images/gallery/gallery_${i + 1}.jpg`),
         []
     );
 
     const finalImages = images?.length ? images : defaultImages;
 
-    const thumbs = useMemo(() => finalImages.slice(0, 6), [finalImages]);
+    const thumbs = useMemo(() => {
+        const selectedIndexes = [1, 5, 17, 14, 35, 32];  //0-based index
+        return selectedIndexes.map((i) => finalImages[i]);
+    }, [finalImages]);
 
     // 썸네일(0~5) 개별 조정용 설정
     const thumbStyle = [
-        { pos: "object-[50%_35%]", scale: "scale-130" }, // 0번 (1행 1열)
-        { pos: "object-[50%_0%]", scale: "scale-110" }, // 1번 (1행 2열)
-        { pos: "object-[50%_30%]", scale: "scale-110" }, // 2번 (2행 1열)
-        { pos: "object-[50%_10%]", scale: "scale-170" }, // 3번 (2행 2열)
-        { pos: "object-[50%_0%]", scale: "scale-130" }, // 4번 (3행 1열)
-        { pos: "object-[50%_10%]", scale: "scale-100" }, // 5번 (3행 2열)
+        // object-[x축_y축] ex)
+        /*
+        * object-[50%_50%]	정중앙
+        * object-[50%_0%]	위쪽 중심
+        * object-[50%_100%]	아래쪽 중심
+        * object-[0%_50%]	왼쪽 중앙
+        * object-[100%_50%]	오른쪽 중앙
+        * */
+        { pos: "object-[50%_25%]", scale: "scale-100" }, // 0번 (1행 1열)
+        { pos: "object-[50%_5%]", scale: "scale-100" }, // 1번 (1행 2열)
+        { pos: "object-[50%_40%]", scale: "scale-100" }, // 2번 (2행 1열)
+        { pos: "object-[50%_70%]", scale: "scale-100" }, // 3번 (2행 2열)
+        { pos: "object-[50%_60%]", scale: "scale-100" }, // 4번 (3행 1열)
+        { pos: "object-[50%_50%]", scale: "scale-100" }, // 5번 (3행 2열)
     ] as const;
 
     const [open, setOpen] = useState(false);
@@ -41,6 +52,35 @@ export default function GallerySection({ images, className }: Props) {
     const scrollerRef = useRef<HTMLDivElement | null>(null);
 
     const close = () => setOpen(false);
+
+    useEffect(() => {
+        if (!open) return;
+
+        const scrollY = window.scrollY;
+
+        const prev = {
+            overflow: document.body.style.overflow,
+            position: document.body.style.position,
+            top: document.body.style.top,
+            width: document.body.style.width,
+            touchAction: document.body.style.touchAction,
+        };
+
+        document.body.style.overflow = "hidden";
+        document.body.style.position = "fixed";
+        document.body.style.top = `-${scrollY}px`;
+        document.body.style.width = "100%";
+        document.body.style.touchAction = "none";
+
+        return () => {
+            document.body.style.overflow = prev.overflow;
+            document.body.style.position = prev.position;
+            document.body.style.top = prev.top;
+            document.body.style.width = prev.width;
+            document.body.style.touchAction = prev.touchAction;
+            window.scrollTo(0, scrollY);
+        };
+    }, [open]);
 
     const openFirst = (idx: number) => {
         setStartIndex(0);
@@ -231,10 +271,12 @@ export default function GallerySection({ images, className }: Props) {
             {/* 모달 */}
             {open && (
                 <div
-                    className="fixed inset-0 z-[9999] bg-black/80"
+                    className="fixed inset-0 z-[9999] bg-white/80"
                     role="dialog"
                     aria-modal="true"
                     aria-label="Gallery modal"
+                    onTouchMove={(e) => e.preventDefault()}
+                    onWheel={(e) => e.preventDefault()}
                 >
                     {/* 바깥 클릭 닫기 */}
                     <button
@@ -245,28 +287,28 @@ export default function GallerySection({ images, className }: Props) {
                     />
 
                     {/* 상단 컨트롤 */}
-                    <div className="absolute left-0 right-0 top-0 z-10 flex items-center justify-between px-4 py-4">
-                        <div className="text-white/80 text-[12px] font-noto-sans-kr">
+                    <div className="absolute left-0 right-0 top-0 z-10 flex items-center justify-between px-4 py-0.5">
+                        <div className="text-black/80 text-[12px] font-noto-sans-kr">
                             {activeIndex + 1} / {finalImages.length}
                         </div>
 
                         <button
                             type="button"
                             onClick={close}
-                            className="rounded-full bg-white/10 px-3 py-2 text-white text-[12px] hover:bg-white/20"
+                            className="rounded-full bg-white/10 px-2 py-1 text-black text-[12px] hover:bg-black/20"
                             aria-label="Close modal"
                         >
-                            닫기
+                            X
                         </button>
                     </div>
 
                     {/* 하단 좌우 버튼 */}
-                    <div className="absolute bottom-6 left-0 right-0 flex justify-between px-8 z-10">
+                    <div className="absolute bottom-1 left-0 right-0 flex justify-between px-8 z-10">
                         <button
                             type="button"
                             onClick={goPrev}
                             disabled={activeIndex === 0}
-                            className="text-white text-2xl disabled:opacity-30"
+                            className="text-black text-2xl disabled:opacity-30"
                             aria-label="Previous image"
                         >
                             ‹
@@ -276,7 +318,7 @@ export default function GallerySection({ images, className }: Props) {
                             type="button"
                             onClick={goNext}
                             disabled={activeIndex === finalImages.length - 1}
-                            className="text-white text-2xl disabled:opacity-30"
+                            className="text-black text-2xl disabled:opacity-30"
                             aria-label="Next image"
                         >
                             ›

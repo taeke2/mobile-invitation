@@ -1,19 +1,25 @@
 "use client";
 
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 
 const images = [
-    "/images/main/main_image_01.jpg",
-    "/images/main/main_image_02.jpg",
-    "/images/main/main_image_03.jpg",
-    "/images/main/main_image_04.jpg",
-    "/images/main/main_image_05.jpg",
-    "/images/main/main_image_06.jpg",
+    "/images/main/main_01.jpg",
+    "/images/main/main_02.jpg",
+    "/images/main/main_03.jpg",
+    "/images/main/main_04.jpg",
+    "/images/main/main_05.jpg",
+    "/images/main/main_06.jpg",
+    "/images/main/main_07.jpg",
+    "/images/main/main_08.jpg",
+    "/images/main/main_09.jpg",
 ];
 
+type Props = {
+    paused?: boolean;
+};
 
-export default function MainSection() {
+export default function MainSection({ paused = false }: Props) {
     const [heroH, setHeroH] = useState<number | null>(null);
     const [current, setCurrent] = useState(0);
 
@@ -31,17 +37,19 @@ export default function MainSection() {
 
     // 이미지 전환
     useEffect(() => {
+        if (paused) return;
+
         const interval = setInterval(() => {
             setCurrent((prev) => (prev + 1) % images.length);
-        }, 3300); // 3.3초
+        }, 3300);
 
         return () => clearInterval(interval);
-    }, []);
+    }, [paused]);
 
     return (
         <section
             className="relative overflow-hidden"
-            style={{height: heroH ? `${heroH}px` : "100vh"}}
+            style={{ height: heroH ? `${heroH}px` : "100vh" }}
         >
             {images.map((src, idx) => (
                 <Image

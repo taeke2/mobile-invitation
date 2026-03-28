@@ -128,6 +128,7 @@ export default function WithLoveSection({
 
     const groomAccounts: AccountItem[] = [
         {role: "신랑", name: "허성택", bank: "국민", account: "459002-04-177607"},
+        {role: "신랑 아버지", name: "허정행", bank: "새마을금고", account: "9003-2674-8822-2"},
         {role: "신랑 어머니", name: "박성연", bank: "농협", account: "352-1351-2482-33"},
     ];
 
