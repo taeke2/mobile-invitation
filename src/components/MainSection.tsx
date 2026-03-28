@@ -4,12 +4,15 @@ import {useEffect, useState} from "react";
 import Image from "next/image";
 
 const images = [
-    "/images/main/main_img_01.jpg",
-    "/images/main/main_img_02.jpg",
-    "/images/main/main_img_03.jpg",
-    "/images/main/main_img_04.jpg",
-    "/images/main/main_img_05.jpg",
-    "/images/main/main_img_06.jpg",
+    "/images/main/main_01.jpg",
+    "/images/main/main_02.jpg",
+    "/images/main/main_03.jpg",
+    "/images/main/main_04.jpg",
+    "/images/main/main_05.jpg",
+    "/images/main/main_06.jpg",
+    "/images/main/main_07.jpg",
+    "/images/main/main_08.jpg",
+    "/images/main/main_09.jpg",
 ];
 
 
