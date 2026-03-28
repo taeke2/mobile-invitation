@@ -12,6 +12,7 @@ import WithLoveSection from "@/src/components/WithLoveSection";
 import MessageSection from "@/src/components/MessageSection";
 import InformationSection from "@/src/components/InformationSection";
 import Footer from "@/src/components/Footer";
+import MusicPlayer from "@/src/components/MusicPlayer";
 
 export default function Home() {
     // ==========================================================
@@ -84,6 +85,9 @@ export default function Home() {
     return (
         <main className="min-h-screen bg-[#722020] flex justify-center">
             <div className="w-full max-w-[430px] bg-white relative mx-auto">
+                {/* bgm */}
+                <MusicPlayer />
+
                 {/* section01 - Main */}
                 <MainSection />
 
