@@ -1,6 +1,6 @@
 "use client";
 
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 
 const images = [
@@ -15,8 +15,11 @@ const images = [
     "/images/main/main_09.jpg",
 ];
 
+type Props = {
+    paused?: boolean;
+};
 
-export default function MainSection() {
+export default function MainSection({ paused = false }: Props) {
     const [heroH, setHeroH] = useState<number | null>(null);
     const [current, setCurrent] = useState(0);
 
@@ -34,17 +37,19 @@ export default function MainSection() {
 
     // 이미지 전환
     useEffect(() => {
+        if (paused) return;
+
         const interval = setInterval(() => {
             setCurrent((prev) => (prev + 1) % images.length);
-        }, 3300); // 3.3초
+        }, 3300);
 
         return () => clearInterval(interval);
-    }, []);
+    }, [paused]);
 
     return (
         <section
             className="relative overflow-hidden"
-            style={{height: heroH ? `${heroH}px` : "100vh"}}
+            style={{ height: heroH ? `${heroH}px` : "100vh" }}
         >
             {images.map((src, idx) => (
                 <Image

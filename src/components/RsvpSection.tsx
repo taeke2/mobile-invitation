@@ -6,6 +6,9 @@ import FadeInOnView from "@/src/components/FadeInOnView";
 
 type Props = {
     showToast: (msg: string) => void;
+    open: boolean;
+    onOpen: () => void;
+    onClose: () => void;
 };
 
 type GuestSide = "GROOM" | "BRIDE" | null;
@@ -50,7 +53,7 @@ const Modal = ({
     if (!open) return null;
 
     return (
-        <div className="fixed inset-0 z-9998 pointer-events-auto" role="dialog" aria-modal="true">
+        <div className="fixed inset-0 z-[9998] pointer-events-auto" role="dialog" aria-modal="true">
             <div
                 className="absolute inset-0 bg-black/45"
                 onPointerDown={(e) => {
@@ -113,9 +116,7 @@ const SelectButton = ({
     );
 };
 
-export default function RsvpSection({ showToast }: Props) {
-    const [open, setOpen] = useState(false);
-
+export default function RsvpSection({ showToast, open, onOpen, onClose }: Props) {
     const [side, setSide] = useState<GuestSide>(null);
     const [attend, setAttend] = useState<Attend>(null);
     const [meal, setMeal] = useState<Meal>("UNKNOWN");
@@ -135,6 +136,10 @@ export default function RsvpSection({ showToast }: Props) {
         setNote("");
     };
 
+    const handleClose = () => {
+        onClose();
+    };
+
     const submit = async () => {
         const trimmedName = name.trim();
         const trimmedCompanion = companionName.trim();
@@ -147,9 +152,9 @@ export default function RsvpSection({ showToast }: Props) {
         setSubmitting(true);
         try {
             const payload = {
-                side: side, // 'groom' | 'bride'
-                attendance: attend, // 'attend' | 'absent'
-                meal: meal ?? "unknown", // 'yes' | 'no' | 'unknown'
+                side: side,
+                attendance: attend,
+                meal: meal ?? "UNKNOWN",
                 name: trimmedName,
                 companions: trimmedCompanion || null,
                 note: trimmedNote || null,
@@ -170,7 +175,7 @@ export default function RsvpSection({ showToast }: Props) {
 
             console.log("[RSVP insert ok]", data);
             showToast("전달되었습니다");
-            setOpen(false);
+            onClose();
             reset();
         } catch (e: any) {
             console.error("[RSVP submit catch]", e);
@@ -182,10 +187,8 @@ export default function RsvpSection({ showToast }: Props) {
 
     return (
         <section className="px-6 py-20 text-center text-black bg-white">
-            {/* 타이틀 SVG */}
             <FadeInOnView>
                 <div className="mx-auto w-40 max-w-[70vw]">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src="/svgs/rsvp.svg" alt="RSVP" className="w-full h-auto" />
                 </div>
             </FadeInOnView>
@@ -196,22 +199,24 @@ export default function RsvpSection({ showToast }: Props) {
 
             <FadeInOnView>
                 <div className="mt-5 font-gowun-batang text-[10px] text-[#ADA9A9] font-bold">
-                    모든 분들을 소중히 모실 수 있도록<br />
+                    모든 분들을 소중히 모실 수 있도록
+                    <br />
                     참석여부를 전해주세요
                 </div>
             </FadeInOnView>
 
-            {/* 메인 카드 */}
             <FadeInOnView>
                 <div className="mt-5">
                     <div className="mx-auto w-full max-w-md rounded-2xl bg-[#AC5344] text-white shadow-[0_10px_28px_rgba(0,0,0,0.12)] overflow-hidden">
                         <div className="px-6 pt-10 pb-8">
-                            {/* 신랑/신부 + 하트 */}
                             <div className="flex items-center justify-center gap-4 font-gowun-batang text-[11px]">
-                                <p><span className="font-bold">신랑</span> 허성택</p>
-                                {/* eslint-disable-next-line @next/next/no-img-element */}
+                                <p>
+                                    <span className="font-bold">신랑</span> 허성택
+                                </p>
                                 <img src="/svgs/heart.svg" alt="heart" className="h-3 w-3" />
-                                <p><span className="font-bold">신부</span> 이현정</p>
+                                <p>
+                                    <span className="font-bold">신부</span> 이현정
+                                </p>
                             </div>
 
                             <div className="mt-7 font-gowun-batang text-[11px] font-bold">
@@ -223,9 +228,9 @@ export default function RsvpSection({ showToast }: Props) {
 
                             <button
                                 type="button"
-                                onClick={() => setOpen(true)}
+                                onClick={onOpen}
                                 className="mt-7 w-full h-10 rounded-md bg-white text-black font-nanum-myeongjo font-bold text-[12px]
-                         shadow-[0_10px_24px_rgba(0,0,0,0.18)] active:scale-[0.99]"
+                                shadow-[0_10px_24px_rgba(0,0,0,0.18)] active:scale-[0.99]"
                             >
                                 참석 의사 체크하기
                             </button>
@@ -234,18 +239,18 @@ export default function RsvpSection({ showToast }: Props) {
                 </div>
             </FadeInOnView>
 
-            {/* 하단 문구 */}
             <FadeInOnView>
                 <div className="mt-10 font-gowun-batang text-[10px] leading-relaxed text-black font-bold">
-                    흐뭇하실 수 있도록 잘 살겠습니다.<br />
-                    꼭 오셔서 축복해 주세요.<br /><br />
+                    흐뭇하실 수 있도록 잘 살겠습니다.
+                    <br />
+                    꼭 오셔서 축복해 주세요.
+                    <br />
+                    <br />
                     신랑 허성택 · 신부 이현정 드림
                 </div>
             </FadeInOnView>
 
-            {/* RSVP 모달 */}
-            <Modal open={open} onClose={() => setOpen(false)}>
-                {/* 헤더 (고정) */}
+            <Modal open={open} onClose={handleClose}>
                 <div className="relative px-5 pt-8 pb-6 shrink-0">
                     <div className="text-center font-gowun-batang font-bold text-[14px] text-black">
                         참석 여부 전달
@@ -253,7 +258,7 @@ export default function RsvpSection({ showToast }: Props) {
 
                     <button
                         type="button"
-                        onClick={() => setOpen(false)}
+                        onClick={handleClose}
                         className="absolute right-6 top-6 w-9 h-9 text-[#9D3333] text-[20px] leading-none active:scale-[0.95]"
                         aria-label="close"
                     >
@@ -262,12 +267,10 @@ export default function RsvpSection({ showToast }: Props) {
                 </div>
 
                 <div className="px-5 pb-6 overflow-y-auto">
-                    {/* 질문 */}
                     <div className="mt-2 text-center font-gowun-batang text-[11px] font-bold text-black">
                         어느 측 하객이신가요?
                     </div>
 
-                    {/* 신랑/신부 */}
                     <div className="mt-4 grid grid-cols-2 gap-3">
                         <SelectButton active={side === "GROOM"} onClick={() => setSide("GROOM")}>
                             신랑
@@ -277,7 +280,6 @@ export default function RsvpSection({ showToast }: Props) {
                         </SelectButton>
                     </div>
 
-                    {/* 참석 여부 */}
                     <div className="mt-8 text-center font-gowun-batang text-[11px] font-bold text-[#6B6B6B]">
                         참석 여부
                     </div>
@@ -290,7 +292,6 @@ export default function RsvpSection({ showToast }: Props) {
                         </SelectButton>
                     </div>
 
-                    {/* 식사 여부 */}
                     <div className="mt-8 text-center font-gowun-batang text-[11px] font-bold text-[#6B6B6B]">
                         식사 여부
                     </div>
@@ -306,7 +307,6 @@ export default function RsvpSection({ showToast }: Props) {
                         </SelectButton>
                     </div>
 
-                    {/* 입력 */}
                     <div className="mt-8 space-y-3">
                         <div className="text-center font-gowun-batang text-[11px] font-bold text-[#6B6B6B]">
                             성함
@@ -316,7 +316,7 @@ export default function RsvpSection({ showToast }: Props) {
                             onChange={(e) => setName(e.target.value)}
                             placeholder="성함을 작성해주세요"
                             className="w-full h-10 rounded-[10px] bg-[#EDEDED]/30 px-4 font-gowun-batang text-[16px] outline-none
-                         shadow-[2px_2px_2px_rgba(0,0,0,0.09)]"
+                            shadow-[2px_2px_2px_rgba(0,0,0,0.09)]"
                             maxLength={50}
                         />
 
@@ -328,7 +328,7 @@ export default function RsvpSection({ showToast }: Props) {
                             onChange={(e) => setCompanionName(e.target.value)}
                             placeholder="동행인 성함을 작성해주세요"
                             className="w-full h-10 rounded-[10px] bg-[#EDEDED]/30 px-4 font-gowun-batang text-[16px] outline-none
-                         shadow-[2px_2px_2px_rgba(0,0,0,0.09)]"
+                            shadow-[2px_2px_2px_rgba(0,0,0,0.09)]"
                             maxLength={80}
                         />
 
@@ -340,12 +340,11 @@ export default function RsvpSection({ showToast }: Props) {
                             onChange={(e) => setNote(e.target.value)}
                             placeholder="전달하실 말씀을 작성해주세요"
                             className="w-full min-h-24 rounded-[10px] bg-[#EDEDED]/30 px-4 py-3 font-gowun-batang text-[16px]
-                         outline-none shadow-[2px_2px_2px_rgba(0,0,0,0.09)]"
+                            outline-none shadow-[2px_2px_2px_rgba(0,0,0,0.09)]"
                             maxLength={300}
                         />
                     </div>
 
-                    {/* 제출 */}
                     <button
                         type="button"
                         onClick={submit}

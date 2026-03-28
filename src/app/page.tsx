@@ -1,6 +1,6 @@
 "use client";
 
-import {useState} from "react";
+import { useEffect, useState } from "react";
 import GallerySection from "@/src/components/GallerySection";
 import RsvpSection from "@/src/components/RsvpSection";
 import MainSection from "@/src/components/MainSection";
@@ -13,13 +13,13 @@ import MessageSection from "@/src/components/MessageSection";
 import InformationSection from "@/src/components/InformationSection";
 import Footer from "@/src/components/Footer";
 import MusicPlayer from "@/src/components/MusicPlayer";
+import EntryRsvpPopup from "@/src/components/EntryRsvpPopup";
 
 export default function Home() {
     // ==========================================================
     // Toast 시작
     // ==========================================================
     const [toastOpen, setToastOpen] = useState(false);
-
     const [toastMsg, setToastMsg] = useState("");
 
     const showToast = (msg: string) => {
@@ -27,7 +27,6 @@ export default function Home() {
         setToastOpen(true);
         setTimeout(() => setToastOpen(false), 2500);
     };
-    // 공통 복사 함수 (Location/마음전하실곳 둘 다 사용)
 
     const copyText = async (text: string) => {
         let success = false;
@@ -41,7 +40,6 @@ export default function Home() {
             success = false;
         }
 
-        // fallback (모바일 / http 대응)
         if (!success) {
             try {
                 const scrollX = window.scrollX;
@@ -54,7 +52,7 @@ export default function Home() {
                 textarea.style.top = "0";
                 textarea.style.left = "-9999px";
                 textarea.style.opacity = "0";
-                textarea.style.fontSize = "16px"; // iOS 확대/스크롤 방지에 도움
+                textarea.style.fontSize = "16px";
 
                 document.body.appendChild(textarea);
 
@@ -82,14 +80,55 @@ export default function Home() {
     // Toast 끝
     // ==========================================================
 
+    // ==========================================================
+    // 첫 진입 RSVP 팝업 / RSVP 모달 상태
+    // ==========================================================
+    const [entryPopupOpen, setEntryPopupOpen] = useState(false);
+    const [rsvpOpen, setRsvpOpen] = useState(false);
+
+    useEffect(() => {
+        const today = new Date().toISOString().slice(0, 10);
+        const hiddenDate = localStorage.getItem("hide-entry-rsvp-popup-date");
+
+        if (hiddenDate !== today) {
+            setEntryPopupOpen(true);
+        }
+    }, []);
+
+    const closeEntryPopup = () => {
+        setEntryPopupOpen(false);
+    };
+
+    const hideEntryPopupToday = () => {
+        const today = new Date().toISOString().slice(0, 10);
+        localStorage.setItem("hide-entry-rsvp-popup-date", today);
+        setEntryPopupOpen(false);
+    };
+
+    const openRsvpFromEntryPopup = () => {
+        setEntryPopupOpen(false);
+        setRsvpOpen(true);
+    };
+
+    const isAnyModalOpen = entryPopupOpen || rsvpOpen;
+    // ==========================================================
+
     return (
         <main className="min-h-screen bg-[#722020] flex justify-center">
             <div className="w-full max-w-[430px] bg-white relative mx-auto">
                 {/* bgm */}
                 <MusicPlayer />
 
+                {/* 첫 진입 팝업 */}
+                <EntryRsvpPopup
+                    open={entryPopupOpen}
+                    onClose={closeEntryPopup}
+                    onHideToday={hideEntryPopupToday}
+                    onOpenRsvp={openRsvpFromEntryPopup}
+                />
+
                 {/* section01 - Main */}
-                <MainSection />
+                <MainSection paused={isAnyModalOpen} />
 
                 {/* section2 - 저희 결혼합니다 */}
                 <TextSection />
@@ -113,7 +152,12 @@ export default function Home() {
                 <InformationSection />
 
                 {/* section9 - RSVP */}
-                <RsvpSection showToast={showToast} />
+                <RsvpSection
+                    showToast={showToast}
+                    open={rsvpOpen}
+                    onOpen={() => setRsvpOpen(true)}
+                    onClose={() => setRsvpOpen(false)}
+                />
 
                 {/* footer */}
                 <Footer />
