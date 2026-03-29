@@ -24,7 +24,6 @@ export default function MainSection({ paused = false }: Props) {
     const [current, setCurrent] = useState(0);
 
     useEffect(() => {
-        // eslint-disable-next-line react-hooks/set-state-in-effect
         setHeroH(window.innerHeight);
 
         const onOri = () => setHeroH(window.innerHeight);
@@ -35,7 +34,6 @@ export default function MainSection({ paused = false }: Props) {
         };
     }, []);
 
-    // 이미지 전환
     useEffect(() => {
         if (paused) return;
 
@@ -46,27 +44,45 @@ export default function MainSection({ paused = false }: Props) {
         return () => clearInterval(interval);
     }, [paused]);
 
+    const preventDefault = (e: React.SyntheticEvent) => {
+        e.preventDefault();
+    };
+
     return (
         <section
             className="relative overflow-hidden"
             style={{ height: heroH ? `${heroH}px` : "100vh" }}
+            onContextMenu={preventDefault}
         >
             {images.map((src, idx) => (
                 <Image
                     key={src}
                     src={src}
-                    alt={`main image ${idx}`}
+                    alt={`main image ${idx + 1}`}
                     fill
                     priority={idx === 0}
                     sizes="100vw"
+                    draggable={false}
+                    onContextMenu={preventDefault}
+                    onDragStart={preventDefault}
                     className={`
-                        object-cover object-center
-                        absolute inset-0 p-5
-                        transition-opacity duration-2000
+                        absolute inset-0 object-cover object-center p-5
+                        select-none transition-opacity duration-2000
                         ${idx === current ? "opacity-100" : "opacity-0"}
                     `}
                 />
             ))}
+
+            <div
+                className="absolute inset-0 z-10"
+                onContextMenu={preventDefault}
+                onDragStart={preventDefault}
+                style={{
+                    WebkitTouchCallout: "none",
+                    WebkitUserSelect: "none",
+                    userSelect: "none",
+                }}
+            />
         </section>
     );
 }

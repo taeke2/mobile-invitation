@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import FadeInOnView from "@/src/components/FadeInOnView";
 
 type Props = {
@@ -70,7 +70,7 @@ const MapModal = ({
 
                     <div className="px-4 pb-6 pt-2">
                         <div className="mx-auto w-40 max-w-[70vw]">
-                            <img src="/svgs/location.svg" alt="Location" className="w-full h-auto" />
+                            <img src="/svgs/location.svg" alt="Location" className="w-full h-auto"/>
                         </div>
 
                         <div className="mt-4 overflow-hidden border border-[#EFEFEF] bg-white">
@@ -100,7 +100,7 @@ const MapModal = ({
     );
 };
 
-export default function LocationSection({ copyText }: Props) {
+export default function LocationSection({copyText}: Props) {
     const [mapOpen, setMapOpen] = useState(false);
 
     return (
@@ -108,7 +108,7 @@ export default function LocationSection({ copyText }: Props) {
             <section className="py-20 text-center text-black bg-white">
                 <FadeInOnView>
                     <div className="mx-auto w-40 max-w-[70vw]">
-                        <img src="/svgs/location.svg" alt="Location" className="w-full h-auto" />
+                        <img src="/svgs/location.svg" alt="Location" className="w-full h-auto"/>
                     </div>
                 </FadeInOnView>
 
@@ -116,10 +116,11 @@ export default function LocationSection({ copyText }: Props) {
                     <div className="mt-7">
                         <div className="text-[13px] font-noto-sans-kr font-semibold">빌라드지디 논현</div>
 
-                        <div className="mt-7 flex items-center justify-center text-[11px] text-black font-gowun-batang font-normal">
+                        <div
+                            className="mt-7 flex items-center justify-center text-[11px] text-black font-gowun-batang font-normal">
                             <p>
                                 하우스웨딩으로 진행되어 주차가 어려운 점 양해 부탁드립니다.
-                                <br />
+                                <br/>
                                 셔틀버스를 준비하였으니 대중교통 이용해주시면 감사하겠습니다.
                             </p>
                         </div>
@@ -161,7 +162,8 @@ export default function LocationSection({ copyText }: Props) {
                                 <div className="mt-3 space-y-2 text-[12px] font-noto-sans-kr">
                                     <p className="font-semibold">7호선, 분당선 강남구청역 2번출구</p>
                                 </div>
-                                <div className="mt-1 space-y-1 text-[11px] text-[#6B6B6B] font-noto-sans-kr leading-relaxed">
+                                <div
+                                    className="mt-1 space-y-1 text-[11px] text-[#6B6B6B] font-noto-sans-kr leading-relaxed">
                                     <p>*2번 출구 20m 직진, 버스승강장 옆 셔틀버스 이용</p>
                                 </div>
                             </div>
@@ -184,7 +186,8 @@ export default function LocationSection({ copyText }: Props) {
                                     <p className="font-semibold">242, 401, 3414, 301번 강남구청역 하차</p>
                                     <p className="font-semibold">342, 472, 3426, 4312번 강남보건소 하차</p>
                                 </div>
-                                <div className="mt-1 space-y-1 text-[11px] text-[#6B6B6B] font-noto-sans-kr leading-relaxed">
+                                <div
+                                    className="mt-1 space-y-1 text-[11px] text-[#6B6B6B] font-noto-sans-kr leading-relaxed">
                                     <p>*7호선, 분당선 강남구청역 2번출구에서 셔틀버스 이용</p>
                                 </div>
                             </div>
@@ -217,7 +220,7 @@ export default function LocationSection({ copyText }: Props) {
                                             className="shrink-0 active:scale-[0.9]"
                                             aria-label="제1주차장 주소 복사"
                                         >
-                                            <img src="/svgs/copy.svg" alt="copy" className="h-3 w-3" />
+                                            <img src="/svgs/copy.svg" alt="copy" className="h-3 w-3"/>
                                         </button>
                                     </div>
 
@@ -233,12 +236,13 @@ export default function LocationSection({ copyText }: Props) {
                                             className="shrink-0 active:scale-[0.9]"
                                             aria-label="제2주차장 주소 복사"
                                         >
-                                            <img src="/svgs/copy.svg" alt="copy" className="h-3 w-3" />
+                                            <img src="/svgs/copy.svg" alt="copy" className="h-3 w-3"/>
                                         </button>
                                     </div>
                                 </div>
 
-                                <div className="mt-1 space-y-0.5 text-[11px] text-[#6B6B6B] font-noto-sans-kr leading-relaxed">
+                                <div
+                                    className="mt-1 space-y-0.5 text-[11px] text-[#6B6B6B] font-noto-sans-kr leading-relaxed">
                                     <p>*제1주차장은 발렛주차로 만차시 제2주차장으로 안내해드립니다.</p>
                                     <p>*제2주차장은 도보 10분 / 셔틀이용 가능합니다.</p>
                                 </div>
@@ -262,7 +266,8 @@ export default function LocationSection({ copyText }: Props) {
                                     <p className="font-semibold">17:30 - 19:00 (90분간)</p>
                                     <p className="font-semibold">19:30 - 20:30 (60분간)</p>
                                 </div>
-                                <div className="mt-1 space-y-1 text-[11px] text-[#6B6B6B] font-noto-sans-kr leading-relaxed">
+                                <div
+                                    className="mt-1 space-y-1 text-[11px] text-[#6B6B6B] font-noto-sans-kr leading-relaxed">
                                     <p>*10분 간격으로 운행</p>
                                 </div>
                             </div>
@@ -282,11 +287,37 @@ export default function LocationSection({ copyText }: Props) {
                             <div className="flex-1">
                                 <div className="font-noto-sans-kr text-[13px] font-semibold">대절버스 이용 시</div>
                                 <div className="mt-3 space-y-0.5 text-[12px] font-noto-sans-kr">
-                                    <p className="font-semibold">출발지 (13:00) : <span className="font-normal">경산시 원효로 28길 20</span></p>
-                                    <p className="font-semibold">경유지 (13:30) : <span className="font-normal">대구스타디움 제2주차장</span></p>
+                                    <div className="flex items-center gap-2">
+                                        <p className="font-semibold">출발지 (13:00) :
+                                            <span className="font-normal">경산시 원효로 28길 20</span>
+                                        </p>
+                                        <button
+                                            type="button"
+                                            onClick={() => copyText("경산시 원효로 28길 20")}
+                                            className="shrink-0 active:scale-[0.9]"
+                                            aria-label="출발지 주소 복사"
+                                        >
+                                            <img src="/svgs/copy.svg" alt="copy" className="h-3 w-3"/>
+                                        </button>
+                                    </div>
+                                    <div className="mt-3 space-y-0.5 text-[12px] font-noto-sans-kr">
+                                        <p className="font-semibold">경유지 (13:30) :
+                                            <span className="font-normal">대구스타디움 제2주차장</span>
+                                        </p>
+                                        <button
+                                            type="button"
+                                            onClick={() => copyText("대구 수성구 노변동 650")}
+                                            className="shrink-0 active:scale-[0.9]"
+                                            aria-label="대구스타디움 제2주차장 주소 복사"
+                                        >
+                                            <img src="/svgs/copy.svg" alt="copy" className="h-3 w-3"/>
+                                        </button>
+                                    </div>
                                 </div>
-                                <div className="mt-1 space-y-1 text-[11px] text-[#6B6B6B] font-noto-sans-kr leading-relaxed">
-                                    <p>* 휴게소 1번 들릴예정</p>
+                                <div
+                                    className="mt-1 space-y-1 text-[11px] text-[#6B6B6B] font-noto-sans-kr leading-relaxed">
+                                    <p>* 대구스타디움 주차장 이용 시 주차비는 무료입니다.</p>
+                                    <p>* 제2주차장 집결이며, 만차 시 제3주차장을 이용해 주세요.</p>
                                 </div>
                             </div>
                         </div>
@@ -309,7 +340,7 @@ export default function LocationSection({ copyText }: Props) {
                 </FadeInOnView>
             </section>
 
-            <MapModal open={mapOpen} onClose={() => setMapOpen(false)} />
+            <MapModal open={mapOpen} onClose={() => setMapOpen(false)}/>
         </>
     );
 }

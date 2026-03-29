@@ -94,7 +94,7 @@ export default function EntryRsvpPopup({
 
                         <button
                             type="button"
-                            onClick={onOpenRsvp}
+                            onClick={onHideToday}
                             className="w-full h-10 rounded-md bg-black/8 backdrop-blur-lg border border-white/40 text-white font-gowun-batang
                                 text-[11px] font-bold shadow-[inset_0_1px_0_rgba(255,255,255,0.5),0_8px_24px_rgba(0,0,0,0.18)]
                                 hover:bg-white/15 active:bg-white/20 active:scale-[0.98] transition"
