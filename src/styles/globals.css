@@ -74,3 +74,9 @@ body {
   scrollbar-color: #B35B49 #eee;
   scrollbar-width: thin;
 }
+
+img {
+  -webkit-user-drag: none;
+  -webkit-touch-callout: none;
+  user-select: none;
+}
