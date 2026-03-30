@@ -12,7 +12,6 @@ type Props = {
 const BLUR_1x1 =
     "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==";
 
-// ✅ 공통 이벤트 막기
 const preventDefault = (e: React.SyntheticEvent) => {
     e.preventDefault();
 };
@@ -104,6 +103,7 @@ export default function GallerySection({ images, className }: Props) {
 
         window.addEventListener("keydown", onKeyDown);
         return () => window.removeEventListener("keydown", onKeyDown);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [open, activeIndex]);
 
     useEffect(() => {
@@ -143,126 +143,286 @@ export default function GallerySection({ images, className }: Props) {
             className={["px-6 py-20 text-center text-black bg-white", className].join(" ")}
             onContextMenu={preventDefault}
         >
-            {/* 타이틀 */}
             <FadeInOnView>
                 <div className="mx-auto w-40 max-w-[70vw]">
-                    <img src="/svgs/gallery.svg" alt="Gallery" className="w-full h-auto" />
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src="/svgs/gallery.svg" alt="Gallery" className="h-auto w-full" />
                 </div>
             </FadeInOnView>
 
-            {/* 안내 */}
             <FadeInOnView>
                 <div className="mt-7">
-                    <p className="text-[13px] font-noto-sans-kr font-semibold">
+                    <p className="font-noto-sans-kr text-[13px] font-semibold">
                         사진을 클릭하시면 전체화면 보기가 가능합니다
                     </p>
-                    <p className="mt-2 text-[11px] text-[#ADA9A9] font-gowun-batang font-bold">
+                    <p className="mt-2 font-gowun-batang text-[11px] font-bold text-[#ADA9A9]">
                         Tap to view full screen
                     </p>
                 </div>
             </FadeInOnView>
 
-            {/* 썸네일 */}
             <div className="mt-10 space-y-2">
-                {[0, 1, 2].map((row) => {
-                    const layouts = [
-                        [0, 1],
-                        [2, 3],
-                        [4, 5],
-                    ];
+                <FadeInOnView>
+                    <div className="grid grid-cols-[2fr_1fr] gap-2">
+                        {[0, 1].map((i) => (
+                            <button
+                                key={i}
+                                type="button"
+                                onClick={() => openFirst(i)}
+                                className="relative h-20 overflow-hidden bg-[#f3f3f3]"
+                            >
+                                <Image
+                                    src={thumbs[i]}
+                                    alt={`gallery thumbnail ${i + 1}`}
+                                    fill
+                                    draggable={false}
+                                    onContextMenu={preventDefault}
+                                    onDragStart={preventDefault}
+                                    className={[
+                                        "object-cover select-none transition-transform duration-300 hover:scale-[1.02]",
+                                        thumbStyle[i]?.pos ?? "object-center",
+                                        thumbStyle[i]?.scale ?? "scale-100",
+                                    ].join(" ")}
+                                    sizes="(max-width:420px) 90vw, 420px"
+                                    loading="lazy"
+                                    placeholder="blur"
+                                    blurDataURL={BLUR_1x1}
+                                />
 
-                    const gridCols = [
-                        "grid-cols-[2fr_1fr]",
-                        "grid-cols-[2fr_1fr]",
-                        "grid-cols-[1fr_2fr]",
-                    ];
-
-                    return (
-                        <FadeInOnView key={row}>
-                            <div className={`grid ${gridCols[row]} gap-2`}>
-                                {layouts[row].map((i) => (
-                                    <button
-                                        key={i}
-                                        type="button"
-                                        onClick={() => openFirst(i)}
-                                        className="relative overflow-hidden bg-[#f3f3f3] h-20"
-                                    >
-                                        <Image
-                                            src={thumbs[i]}
-                                            alt={`gallery thumbnail ${i + 1}`}
-                                            fill
-                                            draggable={false}
-                                            onContextMenu={preventDefault}
-                                            onDragStart={preventDefault}
-                                            className={[
-                                                "object-cover select-none transition-transform duration-300 hover:scale-[1.02]",
-                                                thumbStyle[i]?.pos ?? "object-center",
-                                                thumbStyle[i]?.scale ?? "scale-100",
-                                            ].join(" ")}
-                                            sizes="(max-width:420px) 90vw, 420px"
-                                            loading="lazy"
-                                            placeholder="blur"
-                                            blurDataURL={BLUR_1x1}
-                                        />
-
-                                        {/* 🔥 저장 방지 오버레이 */}
-                                        <div
-                                            className="absolute inset-0 z-10"
-                                            onContextMenu={preventDefault}
-                                            onDragStart={preventDefault}
-                                            style={{ WebkitTouchCallout: "none" }}
-                                        />
-                                    </button>
-                                ))}
-                            </div>
-                        </FadeInOnView>
-                    );
-                })}
-            </div>
-
-            {/* 모달 */}
-            {open && (
-                <div
-                    className="fixed inset-0 z-[9999] bg-white/80"
-                    role="dialog"
-                    aria-modal="true"
-                    onContextMenu={preventDefault}
-                >
-                    <button className="absolute inset-0" onClick={close} />
-
-                    <div
-                        ref={scrollerRef}
-                        className="absolute inset-0 flex overflow-x-auto snap-x snap-mandatory touch-pan-x"
-                    >
-                        {finalImages.map((src, idx) => (
-                            <div key={src} className="relative w-full flex-none snap-center">
-                                <div className="absolute inset-0 flex items-center justify-center px-4">
-                                    <div className="relative w-full max-w-[520px] h-[78vh]">
-                                        <Image
-                                            src={src}
-                                            alt={`gallery image ${idx + 1}`}
-                                            fill
-                                            draggable={false}
-                                            onContextMenu={preventDefault}
-                                            onDragStart={preventDefault}
-                                            className="object-contain select-none"
-                                            sizes="100vw"
-                                            placeholder="blur"
-                                            blurDataURL={BLUR_1x1}
-                                        />
-
-                                        {/* 🔥 모달 이미지 보호 */}
-                                        <div
-                                            className="absolute inset-0 z-10"
-                                            onContextMenu={preventDefault}
-                                            onDragStart={preventDefault}
-                                            style={{ WebkitTouchCallout: "none" }}
-                                        />
-                                    </div>
-                                </div>
-                            </div>
+                                <div
+                                    className="absolute inset-0 z-10"
+                                    onContextMenu={preventDefault}
+                                    onDragStart={preventDefault}
+                                    style={{
+                                        WebkitTouchCallout: "none",
+                                        WebkitUserSelect: "none",
+                                        userSelect: "none",
+                                    }}
+                                />
+                            </button>
                         ))}
                     </div>
+                </FadeInOnView>
+
+                <FadeInOnView>
+                    <div className="grid grid-cols-[2fr_1fr] gap-2">
+                        {[2, 3].map((i) => (
+                            <button
+                                key={i}
+                                type="button"
+                                onClick={() => openFirst(i)}
+                                className="relative h-20 overflow-hidden bg-[#f3f3f3]"
+                            >
+                                <Image
+                                    src={thumbs[i]}
+                                    alt={`gallery thumbnail ${i + 1}`}
+                                    fill
+                                    draggable={false}
+                                    onContextMenu={preventDefault}
+                                    onDragStart={preventDefault}
+                                    className={[
+                                        "object-cover select-none transition-transform duration-300 hover:scale-[1.02]",
+                                        thumbStyle[i]?.pos ?? "object-center",
+                                        thumbStyle[i]?.scale ?? "scale-100",
+                                    ].join(" ")}
+                                    sizes="(max-width:420px) 90vw, 420px"
+                                    loading="lazy"
+                                    placeholder="blur"
+                                    blurDataURL={BLUR_1x1}
+                                />
+
+                                <div
+                                    className="absolute inset-0 z-10"
+                                    onContextMenu={preventDefault}
+                                    onDragStart={preventDefault}
+                                    style={{
+                                        WebkitTouchCallout: "none",
+                                        WebkitUserSelect: "none",
+                                        userSelect: "none",
+                                    }}
+                                />
+                            </button>
+                        ))}
+                    </div>
+                </FadeInOnView>
+
+                <FadeInOnView>
+                    <div className="grid grid-cols-[1fr_2fr] gap-2">
+                        {[4, 5].map((i) => (
+                            <button
+                                key={i}
+                                type="button"
+                                onClick={() => openFirst(i)}
+                                className="relative h-20 overflow-hidden bg-[#f3f3f3]"
+                            >
+                                <Image
+                                    src={thumbs[i]}
+                                    alt={`gallery thumbnail ${i + 1}`}
+                                    fill
+                                    draggable={false}
+                                    onContextMenu={preventDefault}
+                                    onDragStart={preventDefault}
+                                    className={[
+                                        "object-cover select-none transition-transform duration-300 hover:scale-[1.02]",
+                                        thumbStyle[i]?.pos ?? "object-center",
+                                        thumbStyle[i]?.scale ?? "scale-100",
+                                    ].join(" ")}
+                                    sizes="(max-width:420px) 90vw, 420px"
+                                    loading="lazy"
+                                    placeholder="blur"
+                                    blurDataURL={BLUR_1x1}
+                                />
+
+                                <div
+                                    className="absolute inset-0 z-10"
+                                    onContextMenu={preventDefault}
+                                    onDragStart={preventDefault}
+                                    style={{
+                                        WebkitTouchCallout: "none",
+                                        WebkitUserSelect: "none",
+                                        userSelect: "none",
+                                    }}
+                                />
+                            </button>
+                        ))}
+                    </div>
+                </FadeInOnView>
+            </div>
+
+            <FadeInOnView>
+                <p className="mt-10 font-gowun-batang text-[8px] leading-3.5 text-[#6A6A6A]">
+                    “ It was a million tiny little things that,
+                    <br />
+                    when you added them all up,
+                    <br />
+                    they meant we were supposed to be together. ”
+                </p>
+            </FadeInOnView>
+
+            {open && (
+                <div
+                    className="fixed inset-0 z-[9999] bg-[#efefee]"
+                    role="dialog"
+                    aria-modal="true"
+                    aria-label="Gallery modal"
+                    onContextMenu={preventDefault}
+                    onTouchMove={(e) => e.preventDefault()}
+                    onWheel={(e) => e.preventDefault()}
+                >
+                    {/* 바깥 클릭 닫기 */}
+                    <button
+                        type="button"
+                        className="absolute inset-0 cursor-default"
+                        onClick={close}
+                        aria-label="Close modal background"
+                    />
+
+                    {/* 상단 로고 */}
+                    <div className="absolute left-1/2 top-8 z-20 -translate-x-1/2">
+                        <img
+                            src="/svgs/taek&jung.svg"
+                            alt="Taek & Jung"
+                            className="h-auto w-[100px] max-w-[45vw]"
+                        />
+                    </div>
+
+                    {/* 닫기 버튼 */}
+                    <button
+                        type="button"
+                        onClick={close}
+                        className="absolute right-5 top-1 z-20 text-[30px] text-[#a9a7a4] font-thin active:scale-95"
+                        aria-label="Close modal"
+                    >
+                        ×
+                    </button>
+
+                    {/* 하단 장수 표시 */}
+                    <div className="absolute bottom-5 left-1/2 z-20 -translate-x-1/2">
+                        <div className="font-gowun-batang text-[12px] font-medium tracking-[0.02em] text-[#6b6966]">
+                            &lt;&nbsp; {activeIndex + 1} / {finalImages.length} &nbsp;&gt;
+                        </div>
+                    </div>
+
+                    {/* 좌우 버튼 */}
+                    {/*<div className="pointer-events-none absolute bottom-6 left-0 right-0 z-20 flex items-center justify-center gap-6">*/}
+                    {/*    <button*/}
+                    {/*        type="button"*/}
+                    {/*        onClick={goPrev}*/}
+                    {/*        disabled={activeIndex === 0}*/}
+                    {/*        className="pointer-events-auto flex h-11 w-11 items-center justify-center rounded-full border border-white/60 bg-white/70 text-[22px] text-[#5c5148] shadow-[0_8px_20px_rgba(0,0,0,0.08)] backdrop-blur-sm transition active:scale-95 disabled:opacity-30"*/}
+                    {/*        aria-label="Previous image"*/}
+                    {/*    >*/}
+                    {/*        ‹*/}
+                    {/*    </button>*/}
+
+                    {/*    <button*/}
+                    {/*        type="button"*/}
+                    {/*        onClick={goNext}*/}
+                    {/*        disabled={activeIndex === finalImages.length - 1}*/}
+                    {/*        className="pointer-events-auto flex h-11 w-11 items-center justify-center rounded-full border border-white/60 bg-white/70 text-[22px] text-[#5c5148] shadow-[0_8px_20px_rgba(0,0,0,0.08)] backdrop-blur-sm transition active:scale-95 disabled:opacity-30"*/}
+                    {/*        aria-label="Next image"*/}
+                    {/*    >*/}
+                    {/*        ›*/}
+                    {/*    </button>*/}
+                    {/*</div>*/}
+
+                    {/* 이미지 스크롤러 */}
+                    <div
+                        ref={scrollerRef}
+                        className="absolute inset-0 flex snap-x snap-mandatory overflow-x-auto overflow-y-hidden touch-pan-x"
+                    >
+                        {finalImages.map((src, idx) => {
+                            const near = Math.abs(idx - activeIndex) <= 1;
+
+                            return (
+                                <div key={src} className="relative h-full w-full flex-none snap-center">
+                                    <div className="absolute inset-0 flex items-center justify-center px-3 pt-5">
+                                        <div className="relative h-full max-h-[80vh] w-full max-w-[670px] overflow-hidden">
+
+                                            {/* 🔹 배경 (꽉 채움 + 블러) */}
+                                            {/*<Image*/}
+                                            {/*    src={src}*/}
+                                            {/*    alt="bg"*/}
+                                            {/*    fill*/}
+                                            {/*    className="object-cover scale-110 blur-xl brightness-90"*/}
+                                            {/*    sizes="100vw"*/}
+                                            {/*/>*/}
+
+                                            {/* 🔹 실제 이미지 (안 잘림) */}
+                                            <Image
+                                                src={src}
+                                                alt={`gallery image ${idx + 1}`}
+                                                fill
+                                                draggable={false}
+                                                onContextMenu={preventDefault}
+                                                onDragStart={preventDefault}
+                                                className="object-contain select-none"
+                                                sizes="100vw"
+                                                loading={near ? "eager" : "lazy"}
+                                                priority={near}
+                                                quality={75}
+                                                placeholder="blur"
+                                                blurDataURL={BLUR_1x1}
+                                            />
+
+                                            {/* 🔹 보호 레이어 */}
+                                            <div
+                                                className="absolute inset-0 z-10"
+                                                onContextMenu={preventDefault}
+                                                onDragStart={preventDefault}
+                                                style={{
+                                                    WebkitTouchCallout: "none",
+                                                    WebkitUserSelect: "none",
+                                                    userSelect: "none",
+                                                }}
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+
                 </div>
             )}
         </section>
