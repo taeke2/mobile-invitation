@@ -300,22 +300,24 @@ export default function LocationSection({copyText}: Props) {
                                             <img src="/svgs/copy.svg" alt="copy" className="h-3 w-3"/>
                                         </button>
                                     </div>
-                                    <div className="mt-3 space-y-0.5 text-[12px] font-noto-sans-kr">
-                                        <p className="font-semibold">경유지 (13:30) :
-                                            <span className="font-normal">대구스타디움 제2주차장</span>
-                                        </p>
-                                        <button
-                                            type="button"
-                                            onClick={() => copyText("대구 수성구 노변동 650")}
-                                            className="shrink-0 active:scale-[0.9]"
-                                            aria-label="대구스타디움 제2주차장 주소 복사"
-                                        >
-                                            <img src="/svgs/copy.svg" alt="copy" className="h-3 w-3"/>
-                                        </button>
+                                    <div className="space-y-0.5 text-[12px] font-noto-sans-kr">
+                                        <div className="flex items-center gap-2">
+                                            <p className="font-semibold">경유지 (13:30) :
+                                                <span className="font-normal">대구스타디움 제2주차장</span>
+                                            </p>
+                                            <button
+                                                type="button"
+                                                onClick={() => copyText("대구 수성구 노변동 650")}
+                                                className="shrink-0 active:scale-[0.9]"
+                                                aria-label="대구스타디움 제2주차장 주소 복사"
+                                            >
+                                                <img src="/svgs/copy.svg" alt="copy" className="h-3 w-3"/>
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                                 <div
-                                    className="mt-1 space-y-1 text-[11px] text-[#6B6B6B] font-noto-sans-kr leading-relaxed">
+                                    className="mt-1 space-y-0.5 text-[11px] text-[#6B6B6B] font-noto-sans-kr">
                                     <p>* 대구스타디움 주차장 이용 시 주차비는 무료입니다.</p>
                                     <p>* 제2주차장 집결이며, 만차 시 제3주차장을 이용해 주세요.</p>
                                 </div>
