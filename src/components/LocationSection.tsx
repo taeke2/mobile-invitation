@@ -73,26 +73,29 @@ const MapModal = ({
                             <img src="/svgs/location.svg" alt="Location" className="w-full h-auto"/>
                         </div>
 
-                        <div className="mt-4 overflow-hidden border border-[#EFEFEF] bg-white">
+                        <div className="mt-5 text-center font-noto-sans-kr text-[13px] font-semibold text-black">
+                            빌라드지디 논현
+                        </div>
+
+                        <div className="mt-5 text-center font-gowun-batang text-[10px] text-black">
+                            도보로 오실 경우, 안내드린 경로가<br />
+                            평지로 가장 편하게 이동하실 수 있는 길입니다.<br />
+                            해당 경로 이용을 권장드립니다.
+                        </div>
+
+                        <div className="mt-5 overflow-hidden border border-[#EFEFEF] bg-white">
                             <div className="overflow-x-scroll overflow-y-hidden map-scroll">
                                 <Image
                                     src="/images/location.jpg"
                                     alt="확대된 지도"
                                     width={1400}
-                                    height={260}
-                                    className="block h-[260px] w-auto max-w-none"
+                                    height={300}
+                                    className="block h-[300px] w-auto max-w-none"
                                     priority
                                 />
                             </div>
                         </div>
 
-                        <div className="mt-7 text-center font-noto-sans-kr text-[15px] font-semibold text-black">
-                            빌라드지디 논현
-                        </div>
-
-                        <div className="mt-3 text-center font-noto-sans-kr text-[15px] font-semibold text-black">
-                            문의 02.547.3381
-                        </div>
                     </div>
                 </div>
             </div>
@@ -144,6 +147,7 @@ export default function LocationSection({copyText}: Props) {
                             />
                         </div>
                     </button>
+                    <p className="mt-3 font-noto-sans-kr font-semibold text-[9px]">지도를 클릭하시면 크게 보기가 가능합니다</p>
                 </FadeInOnView>
 
                 <div className="px-6 mt-8 text-left">
@@ -288,7 +292,7 @@ export default function LocationSection({copyText}: Props) {
                                 <div className="font-noto-sans-kr text-[13px] font-semibold">대절버스 이용 시</div>
                                 <div className="mt-3 space-y-0.5 text-[12px] font-noto-sans-kr">
                                     <div className="flex items-center gap-2">
-                                        <p className="font-semibold">출발지 (13:00) :
+                                        <p className="font-semibold">출발지 (13:00) :&nbsp;
                                             <span className="font-normal">경산시 원효로 28길 20</span>
                                         </p>
                                         <button
@@ -302,7 +306,7 @@ export default function LocationSection({copyText}: Props) {
                                     </div>
                                     <div className="space-y-0.5 text-[12px] font-noto-sans-kr">
                                         <div className="flex items-center gap-2">
-                                            <p className="font-semibold">경유지 (13:30) :
+                                            <p className="font-semibold">경유지 (13:30) :&nbsp;
                                                 <span className="font-normal">대구스타디움 제2주차장</span>
                                             </p>
                                             <button
