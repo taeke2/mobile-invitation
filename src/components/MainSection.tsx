@@ -4,15 +4,15 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 
 const images = [
-    "/images/main/main_01.jpg",
-    "/images/main/main_02.jpg",
-    "/images/main/main_03.jpg",
-    "/images/main/main_04.jpg",
-    "/images/main/main_05.jpg",
-    "/images/main/main_06.jpg",
-    "/images/main/main_07.jpg",
-    "/images/main/main_08.jpg",
-    "/images/main/main_09.jpg",
+    "/images/main/main01.jpg",
+    "/images/main/main02.jpg",
+    "/images/main/main03.jpg",
+    "/images/main/main04.jpg",
+    "/images/main/main05.jpg",
+    "/images/main/main06.jpg",
+    "/images/main/main07.jpg",
+    "/images/main/main08.jpg",
+    "/images/main/main09.jpg",
 ];
 
 type Props = {
