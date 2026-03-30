@@ -45,7 +45,7 @@ export const metadata: Metadata = {
         siteName: "성택🖤현정 모바일 청첩장",
         images: [
             {
-                url: "/images/url_image.jpg",
+                url: "/images/url_img.jpg",
                 width: 1200,
                 height: 630,
                 alt: "성택 현정 결혼식",
@@ -59,7 +59,7 @@ export const metadata: Metadata = {
         card: "summary_large_image",
         title: "성택🖤현정 결혼합니다",
         description: "5월 9일 (토요일) 오후 6시 30분",
-        images: ["/images/url_image.jpg"],
+        images: ["/images/url_img.jpg"],
     },
 };
 
