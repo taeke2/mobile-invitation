@@ -13,7 +13,7 @@ type Props = {
 
 type GuestSide = "GROOM" | "BRIDE" | null;
 type Attend = "YES" | "NO" | null;
-type Meal = "YES" | "NO" | "UNKNOWN";
+type Meal = "YES" | "NO" | "UNKNOWN" | null;
 
 const Modal = ({
                    open,
@@ -117,9 +117,9 @@ const SelectButton = ({
 };
 
 export default function RsvpSection({ showToast, open, onOpen, onClose }: Props) {
-    const [side, setSide] = useState<GuestSide>(null);
+    const [side, setSide] = useState<GuestSide>("GROOM");
     const [attend, setAttend] = useState<Attend>(null);
-    const [meal, setMeal] = useState<Meal>("UNKNOWN");
+    const [meal, setMeal] = useState<Meal>(null);
 
     const [name, setName] = useState("");
     const [companionName, setCompanionName] = useState("");
@@ -128,9 +128,9 @@ export default function RsvpSection({ showToast, open, onOpen, onClose }: Props)
     const [submitting, setSubmitting] = useState(false);
 
     const reset = () => {
-        setSide(null);
+        setSide("GROOM");
         setAttend(null);
-        setMeal("UNKNOWN");
+        setMeal(null);
         setName("");
         setCompanionName("");
         setNote("");
