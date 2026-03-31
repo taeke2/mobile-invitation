@@ -24,7 +24,7 @@ const MessageCard = ({item}: { item: GuestbookMessage }) => {
             style={{
                 backgroundImage: "url('/images/paper2_bg.jpg')",
                 backgroundRepeat: "no-repeat",
-                backgroundSize: "120%",
+                backgroundSize: "250%",
                 backgroundPosition: "center",
             }}
         >
