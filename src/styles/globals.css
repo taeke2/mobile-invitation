@@ -14,6 +14,7 @@
   --font-gowun-batang: var(--font-gowun-batang);
   --font-noto-sans-kr: var(--font-noto-sans-kr);
   --font-nanum-myeongjo: var(--font-nanum-myeongjo);
+  --font-cormorant-garamond: var(--font-cormorant-garamond);
 }
 
 @media (prefers-color-scheme: dark) {

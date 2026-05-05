@@ -1,5 +1,5 @@
 import type {Metadata} from "next";
-import {Geist, Geist_Mono, Bodoni_Moda_SC, Gowun_Batang, Noto_Sans_KR, Nanum_Myeongjo} from "next/font/google";
+import {Geist, Geist_Mono, Bodoni_Moda_SC, Gowun_Batang, Noto_Sans_KR, Nanum_Myeongjo, Cormorant_Garamond} from "next/font/google";
 import "../styles/globals.css";
 
 const geistSans = Geist({
@@ -31,6 +31,11 @@ const nanumMyeongjo = Nanum_Myeongjo({
     subsets: ["latin"],
     weight: ["400", "700", "800"], // Regular / Bold / ExtraBold
     variable: "--font-nanum-myeongjo",
+});
+
+const cormorantGaramond = Cormorant_Garamond({
+    subsets: ["latin"],
+    variable: "--font-cormorant-garamond",
 });
 
 export const metadata: Metadata = {
@@ -76,6 +81,7 @@ export default function RootLayout({
           ${gowunBatang.variable}
           ${notoSansKr.variable}
           ${nanumMyeongjo.variable}
+          ${cormorantGaramond.variable}
           antialiased
         `}
         >

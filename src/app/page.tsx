@@ -14,6 +14,7 @@ import InformationSection from "@/src/components/InformationSection";
 import Footer from "@/src/components/Footer";
 import MusicPlayer from "@/src/components/MusicPlayer";
 import EntryRsvpPopup from "@/src/components/EntryRsvpPopup";
+import DayAlbumSection from "@/src/components/DayAlbumSection";
 
 export default function Home() {
     // ==========================================================
@@ -158,6 +159,9 @@ export default function Home() {
                     onOpen={() => setRsvpOpen(true)}
                     onClose={() => setRsvpOpen(false)}
                 />
+
+                {/* section10 - DayAlbum */}
+                <DayAlbumSection />
 
                 {/* footer */}
                 <Footer />
