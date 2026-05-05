@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import FadeInOnView from "@/src/components/FadeInOnView";
-import { useState } from "react";
+import {useState} from "react";
 
 export default function DayAlbumSection() {
     const [popupOpen, setPopupOpen] = useState(false);
@@ -11,12 +11,12 @@ export default function DayAlbumSection() {
         const today = new Date();
         const weddingDate = new Date("2026-05-09");
 
-        const isSameDay =
-            today.getFullYear() === weddingDate.getFullYear() &&
-            today.getMonth() === weddingDate.getMonth() &&
-            today.getDate() === weddingDate.getDate();
+        today.setHours(0, 0, 0, 0);
+        weddingDate.setHours(0, 0, 0, 0);
 
-        if (!isSameDay) {
+        const isOpen = today >= weddingDate;
+
+        if (!isOpen) {
             setPopupOpen(true);
             return;
         }
@@ -55,36 +55,38 @@ export default function DayAlbumSection() {
                         </p>
                         {/* 🔥 추가 안내 */}
                         <p className="text-[#AC5344]">
-                            * 업로드 시 성함 또는 닉네임을 꼭 입력해주세요.<br/>
+                            * 업로드 시 성함을 꼭 입력해주세요.<br/>
                             미기재 시 선정이 어려울 수 있습니다.
                         </p>
                     </div>
                 </FadeInOnView>
 
-                <div className="mt-10 rounded-[16px] bg-[#2D2D2D]">
-                    <div className="relative mx-auto h-[280px] w-full overflow-hidden rounded-[10px]">
-                        <Image
-                            src="/images/gallery/gallery_40.jpg"
-                            alt="Our Wedding Day Album"
-                            fill
-                            className="object-cover"
-                        />
+                <FadeInOnView>
+                    <div className="mt-10 rounded-[16px] bg-[#2D2D2D]">
+                        <div className="relative mx-auto h-[280px] w-full overflow-hidden rounded-[10px]">
+                            <Image
+                                src="/images/gallery/gallery_40.jpg"
+                                alt="Our Wedding Day Album"
+                                fill
+                                className="object-cover"
+                            />
 
-                        <div className="absolute inset-0 flex flex-col items-center justify-between py-5 px-5">
-                            <p className="font-cormorant-garamond text-[23px] text-white">
-                                Our Wedding Day Album
-                            </p>
+                            <div className="absolute inset-0 flex flex-col items-center justify-between py-5 px-5">
+                                <p className="font-cormorant-garamond text-[23px] text-white">
+                                    Our Wedding Day Album
+                                </p>
 
-                            <button
-                                type="button"
-                                onClick={handleClick}
-                                className="h-10 w-full rounded-md bg-white font-gowun-batang text-[12px] font-bold text-black shadow-sm active:scale-[0.98] transition"
-                            >
-                                사진 및 동영상 업로드 하기
-                            </button>
+                                <button
+                                    type="button"
+                                    onClick={handleClick}
+                                    className="h-10 w-full rounded-md bg-white font-gowun-batang text-[12px] font-bold text-black shadow-sm active:scale-[0.98] transition"
+                                >
+                                    사진 및 동영상 업로드 하기
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </FadeInOnView>
             </section>
 
             {/* 🔥 팝업 */}
